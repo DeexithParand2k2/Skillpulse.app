@@ -11,6 +11,8 @@ import {
   Avatar
 } from "@mui/material";
 
+import '../../App.css'
+
 const RankingItem = ({
   ranking,
   name,
@@ -31,18 +33,30 @@ const RankingItem = ({
   };
 
   return (
-    <Card sx={{ display: "flex", justifyContent:'space-between', backgroundColor: isUser ? "#86f791" : "" }}>
-      <CardHeader title={studentRank} />
+    <Card sx={{ 
+      display: "flex",
+      justifyContent:'space-between',
+      backgroundColor: isUser ? "#86f791" : "",
+      marginTop:'10px',
+      marginBottom:'10px',
+      padding:'10px'
+    }}>
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center',width:'50px'}}>
+        <Typography sx={{fontFamily : 'Montserrat, sans-serif'}} variant="p" component="div" >
+          {studentRank}
+        </Typography>
+      </div>
+      
 
       <div style={{width:'100px', display:'flex', alignItems:'center' , justifyContent:'center'}}>
         <Avatar  style={{ height:'fit-content' }} alt="X" src={avatarSrc} />
       </div>
 
-      <CardContent>
-        <Typography variant="h5" component="div">
+      <CardContent sx={{width:'200px'}}>
+        <Typography sx={{fontFamily : 'Montserrat, sans-serif'}} variant="h6" component="div">
           {studentName}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        <Typography sx={{ mb: 1.5, fontFamily : 'Montserrat, sans-serif' }} color="text.secondary">
           EIS SCORE - {studentScore.toPrecision(4)}
         </Typography>
       </CardContent>
@@ -52,7 +66,7 @@ const RankingItem = ({
             size="small"
             color="primary"
             onClick={clickHandler}
-            sx={{ border: "2px solid"}}
+            sx={{ border: "2px solid", width:'125px'}}
             disabled = {isUser ? true : false}  
           >
             Compare

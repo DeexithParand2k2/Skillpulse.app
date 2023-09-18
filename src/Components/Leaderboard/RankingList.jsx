@@ -1,8 +1,9 @@
 import React from "react";
 import RankingItem from "./RankingItem";
 
+
 const RankingList = ({ allUsers, Modalopener, UserEmail }) => {
-  // console.log(allUsers);
+  
   return (
     <div>
       {allUsers.map((user, index) => {

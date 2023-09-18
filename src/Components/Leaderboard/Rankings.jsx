@@ -5,45 +5,56 @@ import ComparisonTable from "./ComparisonTable";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import ErrorLoader from "../ErrorLoader";
+import { Divider } from '@mui/material'
 
 const style = {
-  position: "absolute",
+  position: "fixed",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 1000,
+  minWidth: '40%',
+  maxWidth: "80%", // Adjust the maximum width as needed
+  maxHeight: "80vh", // Set a maximum height and adjust as needed
+  width: "auto", // Adjust the width as needed
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  height: 500,
+  borderRadius: "10px",
+  boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)", // Adjust the shadow as needed
+  backgroundColor:'whitesmoke',
+  padding: "20px", // Adjust the padding as needed
+  overflowY: "auto", // Add scrollbars if content overflows vertically
+  zIndex: 1000, // Ensure the modal is on top of other elements
 };
 
 const apiEndpoint = "http://127.0.0.1:8000/api/dbaccess/get-scoreboard/";
 
-const fetchUsers = async () => {
-  const response = await fetch(apiEndpoint, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Token " + sessionStorage.getItem("myToken"),
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  return response.json();
-};
-
 const Rankings = ({ UserEmail }) => {
+
+  const fetchUsers = async () => {
+    const response = await fetch(apiEndpoint, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + sessionStorage.getItem("myToken"),
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  
+    return response.json();
+  };
+
+
   const { data: fetchedData, isFetching, isError } = useQuery(
     "scoreBoardKey",
     fetchUsers,
     {
       // Set staleTime to a high value to avoid frequent refetches
       staleTime: Infinity,
+      onSuccess : (data) =>{
+        console.log('fetched data successfully',data)
+      }
     }
   );
 
@@ -122,27 +133,33 @@ const Rankings = ({ UserEmail }) => {
   }
 
   return (
-    <div>
-      <Modal
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div style={style}>
-          <ComparisonTable user1={user1} user2={user2} />
-        </div>
-      </Modal>
-
+    <div style={{marginTop:'50px'}}>
       <div>
-        <p>{`Your Rank : ${userRank} / ${allUsers.length}`}</p>
+          <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Leaderboard</h1>
+          <Divider></Divider>
       </div>
+      <div>
+        <Modal
+          open={openModal}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div style={style}>
+            <ComparisonTable user1={user1} user2={user2} />
+          </div>
+        </Modal>
 
-      <RankingList
-        allUsers={allUsers}
-        Modalopener={findUserAndOpenModal}
-        UserEmail={UserEmail}
-      />
+        <Typography sx={{fontFamily : 'Montserrat, sans-serif', marginTop:'20px', marginBottom:"20px"}} variant="p" component="div" >
+          {`Your Rank : ${userRank} / ${allUsers.length}`}
+        </Typography>
+
+        <RankingList
+          allUsers={allUsers}
+          Modalopener={findUserAndOpenModal}
+          UserEmail={UserEmail}
+        />
+      </div>
     </div>
   );
 };

@@ -18,8 +18,8 @@ const Row = ({ row, name }) => {
   const [open, setOpen] = useState(false);
   return (
     <Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" }, height: '80px' }}>
+        <TableCell align="center">
           <IconButton
             aria-label="expand row"
             size="small"
@@ -28,7 +28,7 @@ const Row = ({ row, name }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" align="center">
           {row[0][0]}
         </TableCell>
       </TableRow>
@@ -36,18 +36,18 @@ const Row = ({ row, name }) => {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
+            <Box sx={{ margin: 2 }}>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Subject</TableCell>
                     <TableCell>You</TableCell>
-                    <TableCell align="right">{name}</TableCell>
+                    <TableCell align="center">{name.split('@')[0]}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.map((entry, index) => (
-                    <TableRow key={index}>
+                    <TableRow key={index} style={{ height: '50px' }}>
                       {/* subject Name */}
                       <TableCell component="th" scope="row">
                         {entry[1]}
@@ -55,7 +55,7 @@ const Row = ({ row, name }) => {
                       {/* user1 marks */}
                       <TableCell>{entry[2]}</TableCell>
                       {/* user2 marks */}
-                      <TableCell align="right">{entry[3]}</TableCell>
+                      <TableCell align="center">{entry[3]}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -68,8 +68,8 @@ const Row = ({ row, name }) => {
   );
 };
 
+
 const ComparisonTable = ({ user1, user2 }) => {
-  //sub is the current item of the array.
   const func = (moduleType, testType, title, arr, sub, index) => {
     const u1 = user1?.[moduleType]?.[testType]?.[sub]?.["totalMarks"];
     const u2 = user2?.[moduleType]?.[testType]?.[sub]?.["totalMarks"];
@@ -82,12 +82,9 @@ const ComparisonTable = ({ user1, user2 }) => {
     ];
   };
 
-  //module 2 stuff
   let module2_entry_test = [];
   let module2_exit_test = [];
-
   const module2_subjects = ["cn", "os", "dbms"];
-
   module2_subjects.forEach(
     func.bind(
       null,
@@ -97,7 +94,6 @@ const ComparisonTable = ({ user1, user2 }) => {
       module2_entry_test
     )
   );
-
   module2_subjects.forEach(
     func.bind(
       null,
@@ -107,9 +103,6 @@ const ComparisonTable = ({ user1, user2 }) => {
       module2_exit_test
     )
   );
-  // ------module 2 stuff ended-----
-
-  // module1 stuff
 
   const module1_subjects = ["c/c++", "java", "oops", "dsa"];
   let module1_entry_test = [];
@@ -123,7 +116,6 @@ const ComparisonTable = ({ user1, user2 }) => {
       module1_entry_test
     )
   );
-
   module1_subjects.forEach(
     func.bind(
       null,
@@ -134,18 +126,10 @@ const ComparisonTable = ({ user1, user2 }) => {
     )
   );
 
-  //---module 1 stuff ended ----
-
   return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell>Comparison Table</TableCell>
-            </TableRow>
-          </TableHead>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
+        <Table aria-label="collapsible table" size="small">
           <TableBody>
             <Row row={module1_entry_test} name={user2.name} />
             <Row row={module1_exit_test} name={user2.name} />

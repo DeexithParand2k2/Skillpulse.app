@@ -37,6 +37,8 @@ export default function Login() {
       username: formData.get('email'),
       password: formData.get('password'),
     });
+
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     
@@ -60,6 +62,7 @@ export default function Login() {
         if(result.token){
           setToken(result.token);
           sessionStorage.setItem("myToken",result.token);
+          sessionStorage.setItem("myUseremail",requestOptions.body)
           navigate('/dashboard');
           console.log("Token:"+result.token);  
         }

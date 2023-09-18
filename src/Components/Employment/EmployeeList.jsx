@@ -1,8 +1,6 @@
 import EmployeeItem from "./EmployeeItem";
 
 const EmployeeList = ({ seniors }) => {
-
-  console.log('seniors i see',seniors)
   
   return (
     <div>
