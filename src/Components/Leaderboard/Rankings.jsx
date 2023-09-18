@@ -111,7 +111,7 @@ const Rankings = ({ UserEmail }) => {
       setUser1(user);
       setallUsers(users);
     }
-  }, []);
+  }, [fetchedData]);
 
   if (isFetching) {
     return <Spinner />;

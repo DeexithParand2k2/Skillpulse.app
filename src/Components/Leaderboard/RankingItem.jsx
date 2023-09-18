@@ -31,7 +31,7 @@ const RankingItem = ({
   };
 
   return (
-    <Card sx={{ display: "flex", justifyContent:'space-around', backgroundColor: isUser ? "#86f791" : "" }}>
+    <Card sx={{ display: "flex", justifyContent:'space-between', backgroundColor: isUser ? "#86f791" : "" }}>
       <CardHeader title={studentRank} />
 
       <div style={{width:'100px', display:'flex', alignItems:'center' , justifyContent:'center'}}>
@@ -52,7 +52,8 @@ const RankingItem = ({
             size="small"
             color="primary"
             onClick={clickHandler}
-            sx={{ border: "2px solid black", disabled: (isUser===true) ? true : false }}
+            sx={{ border: "2px solid"}}
+            disabled = {isUser ? true : false}  
           >
             Compare
           </Button>

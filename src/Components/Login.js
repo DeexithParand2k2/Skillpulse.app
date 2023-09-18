@@ -34,14 +34,14 @@ export default function Login() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     console.log({
-      email: formData.get('email'),
+      username: formData.get('email'),
       password: formData.get('password'),
     });
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
-      "email": formData.get('email'),
+      "username": formData.get('email'),
       "password": formData.get('password')
     });
     
@@ -54,21 +54,22 @@ export default function Login() {
     fetch("http://localhost:8000/api/token-auth/", requestOptions)   //enter login post end point.
       .then(response=>response.json())
       .then(result => {
-        console.log(result)
-        setToken(result.token);
-        sessionStorage.setItem("myToken",token);
 
-        if (typeof token === 'undefined' || token === "") {
-          // Handle the case where token is undefined or an empty string.
+        console.log(result)
+
+        if(result.token){
+          setToken(result.token);
+          sessionStorage.setItem("myToken",result.token);
+          navigate('/dashboard');
+          console.log("Token:"+result.token);  
+        }
+        else{
           console.log('wrong credentials');
           setMsg('Wrong credentials');
           setSev('error');
           setOpenSnackbar(true);
-        } else {
-          navigate('/dashboard');
-        }
-
-        console.log("Token:"+token);  
+        } 
+        
       })
       .catch(error => console.log('error', error));
 
@@ -100,7 +101,7 @@ export default function Login() {
       body: raw,
     };
     
-    fetch("http://localhost:8000/api/", requestOptions)   //enter signup post end point.
+    fetch("http://localhost:8000/api/register-user/", requestOptions)   //enter signup post end point.
       .then(response=>response.json())
       .then(result => {
         console.log(result)                                            //get response as message
@@ -184,7 +185,7 @@ export default function Login() {
               alignItems: 'center',
             }}
           >
-            <div class="form-toggle">
+            <div className="form-toggle">
               <button id="login-toggle" onClick={toggleLogin}>Log In</button>
               <button id="signup-toggle" onClick={toggleSignup}>Sign Up</button>
             </div>
@@ -261,20 +262,20 @@ export default function Login() {
         margin="normal"
         required
         fullWidth
-        id="email"
-        label="Email Address"
-        name="email"
-        autoComplete="email"
-        autoFocus />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
         id="username"
         label="User Name"
         name="username"
         autoComplete="username"
          />
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="email"
+        label="Email Address"
+        name="email"
+        autoComplete="email"
+        autoFocus />
       <TextField
         margin="normal"
         required
