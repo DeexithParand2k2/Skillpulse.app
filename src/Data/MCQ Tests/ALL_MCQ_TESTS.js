@@ -1432,12 +1432,12 @@ const javaMcqEntryTest = [
 
 
 export {
-    cCppMcqEntryTest,
-    cCppMcqExitTest,
-    javaMcqEntryTest,
-    javaMcqExitTest,
-    oopsMcqEntryTest,
-    oopsMcqExitTest,
-    dsaMcqEntryTest,
-    dsaMcqExitTest,
+  cCppMcqEntryTest,
+  cCppMcqExitTest,
+  javaMcqEntryTest,
+  javaMcqExitTest,
+  oopsMcqEntryTest,
+  oopsMcqExitTest,
+  dsaMcqEntryTest,
+  dsaMcqExitTest,
 }
