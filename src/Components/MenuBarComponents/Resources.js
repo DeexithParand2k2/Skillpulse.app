@@ -18,7 +18,6 @@ function Resources() {
   const apiEndpoint = 'http://127.0.0.1:8000/api/dbaccess/get-resources/';
 
   const [test, setTest] = useState('dbms');
-  const [links, setLinks] = useState([]);
   const queryClient = useQueryClient();
 
   const fetchData = async (subject) => {
@@ -61,43 +60,8 @@ function Resources() {
     refetch();
   };
 
-  const fetchTitleAndFavicon = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const title = doc.querySelector('title').textContent;
-
-      return title;
-    } catch (error) {
-      console.error('Error fetching and extracting title:', error);
-      return 'No Title';
-    }
-  };
-
   useEffect(() => {
-    const fetchTitlesAndFavicons = async () => {
-      if (data) {
-        const tempLinks = await Promise.all(
-          data.resources.map(async (resource) => {
-            const title = await fetchTitleAndFavicon(resource);
-            return {
-              url: resource,
-              title,
-            };
-          })
-        );
-
-        setLinks(tempLinks);
-      }
-    };
-
-    fetchTitlesAndFavicons();
+    console.log(data);
   }, [data]);
 
   if (isFetching) {
@@ -139,17 +103,15 @@ function Resources() {
       </div>
       {/* Render your fetched data as Material-UI cards */}
       <div>
-        {links && links.length > 0 ? (
+        {data.resources && Array.isArray(data.resources) && data.resources.length > 0 ? (
           <div>
-            {links.map((item, index) => (
+            {data.resources.map((item,index) => (
               <Card key={index} style={{ marginBottom: '10px' }}>
                 <CardContent>
-                  <Typography variant="h6">{item.title}</Typography>
-                  <img
-                    src={`https://s2.googleusercontent.com/s2/favicons?domain=${item.url}`}
-                    alt="Favicon"
-                  />
-                  <a href={item.url}>{item.url}</a>
+                  {/* <Typography variant="h6">{item.title}</Typography>
+                  <Typography variant="body2">{item.description}</Typography> */}
+                  <img src={`https://s2.googleusercontent.com/s2/favicons?domain=${item}`} alt="Favicon" />
+                  <a href={item}>{item}</a>
                 </CardContent>
               </Card>
             ))}
