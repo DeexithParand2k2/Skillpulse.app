@@ -153,8 +153,33 @@ function Dashboard() {
     const testType = takeTest[2]; // Replace with your dynamic value
     console.log('Navigation done ',`/test/${moduleName}/${subjectName}/${testType}`)
 
-    if(moduleName!=="" && subjectName!=="" && testType!==""){
-      navigate(`/test/${moduleName}/${subjectName}/${testType}`);  
+    if(moduleName!=="" && subjectName!=="" && testType!=="" && moduleName=="m1"){
+
+      if(testType==='exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks>-1){
+        navigate(`/test-mcq/${moduleName}/${subjectName}/${testType}`);
+      }
+      else if(testType==='entryTest'){
+        navigate(`/test-mcq/${moduleName}/${subjectName}/${testType}`);
+      }
+      else{
+        navigate(`/dashboard`)
+      }
+
+        
+    }
+    
+    if(moduleName!=="" && subjectName!=="" && testType!=="" && moduleName=="m2"){
+      
+      if(testType==='exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks>-1){
+        navigate(`/test/${moduleName}/${subjectName}/${testType}`);
+      }
+      else if(testType==='entryTest'){
+        navigate(`/test/${moduleName}/${subjectName}/${testType}`);
+      }
+      else{
+        navigate(`/dashboard`)
+      }
+
     }
 
     setOpen(false);

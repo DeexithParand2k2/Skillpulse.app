@@ -58,30 +58,6 @@ const getQuestionSet = (moduleName,subjectName,testType) =>{
 }
 
 
-// function makeReqObject(questions,subjectName){
-  
-//   var userAnswerObject = {}, tempUserAnswerObject = {}
-
-//   var questionNumber = 1;
-
-//   for (const entry of questions) {
-//     const { user_answer } = entry;
-//     tempUserAnswerObject[questionNumber++] = user_answer;
-//   }
-
-//   //console.log(finalans)
-
-//   userAnswerObject = {
-//     ["UserAnswer"] : {
-//       [subjectName] : tempUserAnswerObject
-//     }
-//   }
-
-//   console.log('give me object ', userAnswerObject);
-
-//   return userAnswerObject;
-// }
-
 const TestQNA = () => {
 
   const { moduleName, subjectName, testType } = useParams();
@@ -194,7 +170,12 @@ const TestQNA = () => {
   return (
     <>
       { questions.length > 0 ? ( 
-        <div style={{background:"#F0EBF8", padding: '20px'}}>
+        <div style={{
+          background:"#F0EBF8",
+          padding: '20px',
+          backgroundImage: `url('images/dsa.png')`,
+          backgroundRepeat: 'repeat'
+        }}>
           <Container maxWidth="md">
             <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
               {questions.map((question, index) => (

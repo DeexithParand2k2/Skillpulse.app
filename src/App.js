@@ -7,6 +7,7 @@ import Login from './Components/Login';
 import Spinner from './Components/Spinner'
 import MainDrawer from './Components/MainDrawer';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import TestMcq from './Components/TestMcq';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/loading" element={<Spinner />} />
           <Route path="/login" element={<Login />} />
           <Route path="/test" element={<TestQNA />} />
+          <Route path="/test-mcq/:moduleName/:subjectName/:testType" element={<TestMcq />} />
           <Route path="/test/:moduleName/:subjectName/:testType" element={<TestQNA />} />
         </Routes>
       </Router>
