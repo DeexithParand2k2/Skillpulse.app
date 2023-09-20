@@ -28,8 +28,9 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { Routes, Route, Outlet, Link, useParams } from "react-router-dom";
 import Resources from "./MenuBarComponents/Resources";
 import ProfileCard from "./MenuBarComponents/ProfileCard";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Leaderboard from "./MenuBarComponents/Leaderboard";
+import { Avatar } from "@mui/material";
 
 
 const drawerWidth = 240;
@@ -81,11 +82,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end"
 }));
 
+
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [menuData,setMenuData] = useState('dashboard')
   const [eisScore, setEisScore] = useState(0.0);
+  const [userEmail, setUserEmail] = useState('yogi@gmail.com')
 
   const [showProfile,setShowProfile] = useState(false)
 
@@ -136,6 +139,11 @@ export default function PersistentDrawerLeft() {
     setMenuData('resources')
   }
 
+  useEffect(()=>{
+    if(sessionStorage.getItem('myUseremail')){
+      setUserEmail(JSON.parse(sessionStorage.getItem('myUseremail')).username)
+    }
+  },[])
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -152,9 +160,15 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <h2 className="font-Pacifico" style={{ flex: 8 }}>SkillPulse</h2>
-          <IconButton onClick={handleAccountCircleClick}>
-            <AccountCircleIcon />
-          </IconButton>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IconButton onClick={handleAccountCircleClick}>
+              <Avatar
+                alt="X"
+                src={`https://avatars.dicebear.com/api/identicon/${userEmail}.svg`}
+                sx={{ width: 35, height: 35, border: '2px solid #fff' }} // Adjust the width and height as needed
+              />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -171,6 +185,13 @@ export default function PersistentDrawerLeft() {
         open={open}
       >
         <DrawerHeader>
+
+          <ListItem key="Dashboard" disablePadding>
+            <ListItemButton onClick={handleDashboardClick}>
+              <ListItemText primary="Dashboard" />
+            </ListItemButton>
+          </ListItem>
+          
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
