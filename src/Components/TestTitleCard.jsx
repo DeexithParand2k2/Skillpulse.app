@@ -4,7 +4,7 @@ import { Card, CardContent, Divider, Typography } from '@mui/material';
 const testTitleCardStyles = {
   textAlign: 'center',
   borderRadius: '6px',
-  borderTop: '10px solid rgb(105, 58, 184)',
+  borderTop: '10px solid #3D8F2D',
   padding: '2px', 
   marginBottom: '10px'
 };

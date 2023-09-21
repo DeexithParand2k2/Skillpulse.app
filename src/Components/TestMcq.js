@@ -22,6 +22,7 @@ import {
 } from '../Data/MCQ Tests/ALL_MCQ_TESTS';
 import { useNavigate, useParams } from 'react-router';
 import MCQQuestion from '../Components/MCQQuestion'
+import TestTitleCard from "./TestTitleCard";
 
 var globalFinalAns = 'javaMcqEntryTest';
 
@@ -109,19 +110,25 @@ const MCQTestQNA = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      {mcqQuestions.map((question, index) => (
-        <MCQQuestion
-          key={question.question_number}
-          question={question}
-          index={index}
-          handleAnswerChange={handleAnswerChange}
-        />
-      ))}
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
-        Submit
-      </Button>
-    </Container>
+    <div style={{
+        background:"#E2EEE0",
+        padding: '20px'
+    }}>
+        <Container maxWidth="md">
+        <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
+        {mcqQuestions.map((question, index) => (
+            <MCQQuestion
+            key={question.question_number}
+            question={question}
+            index={index}
+            handleAnswerChange={handleAnswerChange}
+            />
+        ))}
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Submit
+        </Button>
+        </Container>
+    </div>
   );
 };
 
