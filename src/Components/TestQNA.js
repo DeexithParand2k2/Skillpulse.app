@@ -172,9 +172,7 @@ const TestQNA = () => {
       { questions.length > 0 ? ( 
         <div style={{
           background:"#F0EBF8",
-          padding: '20px',
-          backgroundImage: `url('images/dsa.png')`,
-          backgroundRepeat: 'repeat'
+          padding: '20px'
         }}>
           <Container maxWidth="md">
             <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
