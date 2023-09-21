@@ -7,6 +7,7 @@ import { cnExitTest,dbmsExitTest,osExitTest } from '../Data/QNA Entry Tests/ALL_
 import { useParams } from 'react-router-dom';
 import { TestTotalMarks } from '../Data/TestHistory'
 import { useNavigate } from 'react-router-dom';
+import '../../src/App.css'
 
 var globalFinalAns = cnEntryTest
 
@@ -177,8 +178,8 @@ const TestQNA = () => {
           <Container maxWidth="md">
             <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
               {questions.map((question, index) => (
-                <Card key={index} style={{ marginBottom: '20px', padding: '10px' }}>
-                  <CardContent>
+                <Card key={index} id="navbarFont" style={{ marginBottom: '20px', padding: '10px' }}>
+                  <CardContent id={`answer-${index}`}>
                     <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>{`Question ${index + 1}: ${question.question}`}</p>
                     <TextField
                       id={`answer-${index}`}

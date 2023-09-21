@@ -186,10 +186,8 @@ export default function PersistentDrawerLeft() {
       >
         <DrawerHeader>
 
-          <ListItem key="Dashboard" disablePadding>
-            <ListItemButton onClick={handleDashboardClick}>
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
+          <ListItem sx={{textAlign:'center', fontWeight:'bold'}} key="Dashboard" disablePadding>
+            <ListItemText primary={menuData.toUpperCase()} />
           </ListItem>
           
           <IconButton onClick={handleDrawerClose}>

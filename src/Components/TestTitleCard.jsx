@@ -1,15 +1,17 @@
 import React from 'react';
 import { Card, CardContent, Divider, Typography } from '@mui/material';
 
-const testTitleCardStyles = {
-  textAlign: 'center',
-  borderRadius: '6px',
-  borderTop: '10px solid #3D8F2D',
-  padding: '2px', 
-  marginBottom: '10px'
-};
+
 
 const TestTitleCard = ({ moduleName,subjectName,testType }) => {
+
+  const testTitleCardStyles = {
+    textAlign: 'center',
+    borderRadius: '6px',
+    borderTop: (moduleName==='m1') ? '10px solid #3D8F2D' : '10px solid #673AB7',
+    padding: '2px', 
+    marginBottom: '10px'
+  };
   
   return (
       <Card style={testTitleCardStyles}>
