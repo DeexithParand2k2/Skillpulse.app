@@ -18,7 +18,7 @@ function Resources() {
   const apiEndpoint = 'http://127.0.0.1:8000/api/dbaccess/get-resources/';
 
   const [test, setTest] = useState('dbms');
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
   const fetchData = async (subject) => {
     try {

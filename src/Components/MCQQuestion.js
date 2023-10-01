@@ -67,9 +67,9 @@ const MCQQuestion = ({ question, index, handleAnswerChange }) => {
               />
             </RadioGroup>
           </FormControl>
-            <Typography id="navbarFont" variant="body2" style={{ marginTop: '10px' }}>
-                Selected Option: <div style={{ fontWeight:'bold' }}>{selectedOption}</div>
-            </Typography>
+          <Typography id="navbarFont" variant="body2" style={{ marginTop: '10px' }}>
+              Selected Option: <span style={{ fontWeight:'bold' }}>{selectedOption}</span>
+          </Typography>
         </CardContent>
       </Card>
     );

@@ -127,7 +127,6 @@ const TestQNA = () => {
       const data = await fetchData();
       if (data) {
         console.log('Fetched data Yo :', data);
-        //updateTheGraphData(data); // Calc done in front end
         TestTotalMarks = data
         handleNavigate();
       }

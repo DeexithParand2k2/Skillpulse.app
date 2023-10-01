@@ -23,69 +23,131 @@ import {
 import { useNavigate, useParams } from 'react-router';
 import MCQQuestion from '../Components/MCQQuestion'
 import TestTitleCard from "./TestTitleCard";
+import { QueryClient, useQuery, useQueryClient } from 'react-query';
+import Spinner from './Spinner';
+import ErrorLoader from './ErrorLoader';
 
-var globalFinalAns = 'javaMcqEntryTest';
+var nameOfTest = '';
 
 const getQuestionSet = (subjectName, testType) => {
-  var finalans = [];
+  var questionSet = [];
 
   if (testType === 'entryTest') {
     switch (subjectName) {
       case 'java':
-        finalans = javaMcqEntryTest;
-        globalFinalAns = 'javaMcqEntryTest';
+        questionSet = javaMcqEntryTest;
+        nameOfTest = 'javaEntryTest';
         break;
       case 'c/c++':
-        finalans = cCppMcqEntryTest;
-        globalFinalAns = 'cCppMcqEntryTest';
+        questionSet = cCppMcqEntryTest;
+        nameOfTest = 'c/c++EntryTest';
         break;
       case 'dsa':
-        finalans = dsaMcqEntryTest;
-        globalFinalAns = 'dsaMcqEntryTest';
+        questionSet = dsaMcqEntryTest;
+        nameOfTest = 'dsaEntryTest';
         break;
       case 'oops':
-        finalans = oopsMcqEntryTest;
-        globalFinalAns = 'oopsMcqEntryTest';
+        questionSet = oopsMcqEntryTest;
+        nameOfTest = 'oopsEntryTest';
         break;
       default:
-        finalans = [];
+        questionSet = [];
     }
   }
 
   if (testType === 'exitTest') {
     switch (subjectName) {
       case 'java':
-        finalans = javaMcqExitTest;
-        globalFinalAns = 'javaMcqExitTest';
+        questionSet = javaMcqExitTest;
+        nameOfTest = 'javaExitTest';
         break;
       case 'c/c++':
-        finalans = cCppMcqExitTest;
-        globalFinalAns = 'cCppMcqExitTest';
+        questionSet = cCppMcqExitTest;
+        nameOfTest = 'c/c++ExitTest';
         break;
       case 'dsa':
-        finalans = dsaMcqExitTest;
-        globalFinalAns = 'dsaMcqExitTest';
+        questionSet = dsaMcqExitTest;
+        nameOfTest = 'dsaExitTest';
         break;
       case 'oops':
-        finalans = oopsMcqExitTest;
-        globalFinalAns = 'oopsMcqExitTest';
+        questionSet = oopsMcqExitTest;
+        nameOfTest = 'oopsExitTest';
         break;
       default:
-        finalans = [];
+        questionSet = [];
     }
   }
 
-  return finalans;
+  return questionSet;
 };
 
 
-
 const MCQTestQNA = () => {
+
   const [answers, setAnswers] = useState([]);
   const [mcqQuestions, setQuestions] = useState([]);
+  const [userAnswerObject, setUserAnswerObject] = useState({})
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  const navigate = useNavigate();
+
+  const apiEndpoint = 'http://127.0.0.1:8000/api/GetMcqRating/';
+  // react query
+  const queryClient = useQueryClient()
+
+  const createRequestObject = (userAnswers) =>{
+    return {
+      "UserAnswer" : {
+        [nameOfTest] : userAnswers
+      }
+    }
+  }
+
+  // fetch async function
+  const fetchData = async () =>{
+
+    try{
+
+      const reqObj = createRequestObject(userAnswerObject);
+
+      console.log('GOOD REQUEST OBJECT', reqObj);
+      
+      const response = await fetch(apiEndpoint,{
+        method : 'POST',
+        headers : {
+          'Content-Type': 'application/json',
+          Authorization: 'Token ' + sessionStorage.getItem('myToken')
+        },
+        body : JSON.stringify(reqObj)
+      })
+
+      if(!response.ok){
+        throw new Error('Network response was not ok');
+      }
+
+      return response.json();
+    }
+    catch(error){
+      throw error
+    }
+
+  }
+
+  //react query : useQuery
+  const {data, isFetching, isError } = useQuery(
+    ['getMcqTestResults'],
+    () => fetchData(),
+    {
+      enabled: buttonClicked, //initial fetch
+      onSuccess(data) {
+        console.log('fetched Properly',data)
+      },
+      staleTime : Infinity
+    }
+  )
 
   const { moduleName, subjectName, testType } = useParams();
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     console.log('params passed : ', moduleName, subjectName, testType);
@@ -101,13 +163,24 @@ const MCQTestQNA = () => {
 
   const handleSubmit = () => {
     // Create a user object with answers
-    const userAnswerObject = Object.fromEntries(
+    const userAnswerObjectSubmission = Object.fromEntries(
       mcqQuestions.map((question, index) => [question.question_number, Number(answers[index] === question.expected_answer)])
     );
 
+    setUserAnswerObject(userAnswerObjectSubmission)
     // Send the user answer object to the server or perform further actions
-    console.log('User answers:', userAnswerObject);
+    // console.log('request object',requestObject)
+
+    setButtonClicked(true);
   };
+
+  if (isFetching) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <ErrorLoader />;
+  }
 
   return (
     <div style={{
@@ -115,18 +188,18 @@ const MCQTestQNA = () => {
         padding: '20px'
     }}>
         <Container maxWidth="md">
-        <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
-        {mcqQuestions.map((question, index) => (
-            <MCQQuestion
-            key={question.question_number}
-            question={question}
-            index={index}
-            handleAnswerChange={handleAnswerChange}
-            />
-        ))}
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Submit
-        </Button>
+          <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
+          {mcqQuestions.map((question, index) => (
+              <MCQQuestion
+              key={question.question_number}
+              question={question}
+              index={index}
+              handleAnswerChange={handleAnswerChange}
+              />
+          ))}
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Submit
+          </Button>
         </Container>
     </div>
   );
