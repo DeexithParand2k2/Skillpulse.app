@@ -8,6 +8,9 @@ import { useParams } from 'react-router-dom';
 import { TestTotalMarks } from '../Data/TestHistory'
 import { useNavigate } from 'react-router-dom';
 import '../../src/App.css'
+import { isError, useQuery } from 'react-query';
+import ErrorLoader from './ErrorLoader';
+import Spinner from './Spinner';
 
 var globalFinalAns = cnEntryTest
 
@@ -64,11 +67,12 @@ const TestQNA = () => {
   const { moduleName, subjectName, testType } = useParams();
 
   const [questions,setAnswers] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const navigate = useNavigate();
 
 
-  function makeReqObject(questions,subjectName){
+  function makeReqObject(questions){
 
     //let finalans = getQuestionSet(moduleName, subjectName, testType);
     let finalansRequest = globalFinalAns;
@@ -95,51 +99,49 @@ const TestQNA = () => {
     return userAnswerObject;
   }
 
-  function hitServer(reqObj){
   
-    async function fetchData() {
-      try {
-        let token = sessionStorage.getItem('myToken');
-        navigate('/loading');
+  const fetchData = async () => {
+    try {
+      var reqObj = makeReqObject(questions);
 
-        const response = await fetch('http://127.0.0.1:8000/api/GetRating/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Token ' + token,
-          },
-          body: JSON.stringify(reqObj)
-        });
-    
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error('Error fetching data:');
-        return null;
+      console.log('request object I need',reqObj)
+
+      const response = await fetch('http://127.0.0.1:8000/api/GetRating/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + sessionStorage.getItem('myToken'),
+        },
+        body: JSON.stringify(reqObj)
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error
     }
-    
-    async function mainReq() {
-      const data = await fetchData();
-      if (data) {
-        console.log('Fetched data Yo :', data);
-        TestTotalMarks = data
-        handleNavigate();
-      }
-    }
-    
-    mainReq();
-    
   }
 
-  const handleNavigate = () => {
-    // Use the navigate function to navigate to a specific route
-    navigate('/dashboard');
-  };
+  const { data, isFetching, isError } = useQuery(
+    ['getQNATestResults'],
+    () => fetchData(),
+    {
+      enabled : buttonClicked,
+      onSuccess(data){
+        console.log('successfully fetched',data)
+      },
+      staleTime: Infinity
+    }
+  )
+
+  // const handleNavigate = () => {
+  //   // Use the navigate function to navigate to a specific route
+  //   navigate('/dashboard');
+  // };
 
   useEffect(()=>{
     console.log('params passed : ',moduleName,subjectName,testType);
@@ -155,17 +157,16 @@ const TestQNA = () => {
   };
 
   const handleSubmit = () => {
-    //send the request here, loading bar and update in dashboard, connect react chart
-
-    //create a request object
-    var reqObj = makeReqObject(questions,subjectName);
-
-    //major part, hitting the backend endpoint
-    var response = hitServer(reqObj);
-
-
-    console.log('YAYYYY GOT RESPONSE',response)
+    setButtonClicked(true);
   };
+
+  if(isError){
+    return <ErrorLoader />
+  }
+
+  if(isFetching){
+    return <Spinner />
+  }
 
   return (
     <>
