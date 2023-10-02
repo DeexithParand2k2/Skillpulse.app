@@ -93,9 +93,13 @@ const Rankings = ({ UserEmail }) => {
           name: key,
           eis_score: score_board[key],
           email: key,
+          m1:{
+            entry_test: scores[key]['m1']["entryTest"],
+            exit_test: scores[key]['m1']["exitTest"],
+          },
           m2: {
-            entry_test: scores[key]["entryTest"],
-            exit_test: scores[key]["exitTest"],
+            entry_test: scores[key]['m2']["entryTest"],
+            exit_test: scores[key]['m2']["exitTest"],
           },
         };
 
