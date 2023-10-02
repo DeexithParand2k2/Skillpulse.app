@@ -11,70 +11,69 @@ import { useQuery, useQueryClient } from 'react-query';
 import ErrorLoader from './ErrorLoader';
 import Spinner from './Spinner';
 
-var globalFinalAns = cnEntryTest
-
-const getquestionSet = (moduleName,subjectName,testType) =>{
-
-
-  if(testType === 'entryTest'){
-
-    var finalans = [];
-
-    switch(subjectName) {
-      case 'cn':
-        finalans = cnEntryTest; 
-        globalFinalAns = "cnEntryTest";
-        break;
-      case 'dbms':
-        finalans = dbmsEntryTest; 
-        globalFinalAns = "dbmsEntryTest";
-        break;
-      case 'os':
-        finalans = osEntryTest; 
-        globalFinalAns = "osEntryTest";
-        break;
-      default:
-        finalans = [];
-    }
-  }
-  
-  if(testType === 'exitTest'){
-    switch(subjectName) {
-      case 'cn':
-        finalans = cnExitTest;
-        globalFinalAns = "cnExitTest"; 
-        break;
-      case 'dbms':
-        finalans = dbmsExitTest; 
-        globalFinalAns = "dbmsExitTest";
-        break;
-      case 'os':
-        finalans = osExitTest; 
-        globalFinalAns = "osExitTest";
-        break;
-      default:
-        finalans = [];
-    }
-  }
-
-  return finalans;
-}
-
+var nameOfTest = ""
 
 const TestQNA = () => {
 
   const { moduleName, subjectName, testType } = useParams();
 
   const [questionSet,setQuestionSet] = useState([]);
-  const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonClicked,setButtonClicked] = useState(false);
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
 
+  const getquestionSet = (subjectName,testType) =>{
+
+    if(testType === 'entryTest'){
+  
+      var questionPaper = [];
+  
+      switch(subjectName) {
+        case 'cn':
+          questionPaper = cnEntryTest; 
+          nameOfTest = "cnEntryTest";
+          break;
+        case 'dbms':
+          questionPaper = dbmsEntryTest; 
+          nameOfTest = "dbmsEntryTest";
+          break;
+        case 'os':
+          questionPaper = osEntryTest; 
+          nameOfTest = "osEntryTest";
+          break;
+        default:
+          questionPaper = [];
+      }
+    }
+    
+    if(testType === 'exitTest'){
+      switch(subjectName) {
+        case 'cn':
+          questionPaper = cnExitTest;
+          nameOfTest = "cnExitTest"; 
+          break;
+        case 'dbms':
+          questionPaper = dbmsExitTest; 
+          nameOfTest = "dbmsExitTest";
+          break;
+        case 'os':
+          questionPaper = osExitTest; 
+          nameOfTest = "osExitTest";
+          break;
+        default:
+          questionPaper = [];
+      }
+    }
+  
+    return questionPaper;
+  }
+
+
   function makeReqObject(questionSet){
 
-    let finalansRequest = globalFinalAns;
+    let questionSetRequest = nameOfTest;
   
     var userAnswerObject = {}, tempUserAnswerObject = {}
   
@@ -85,15 +84,11 @@ const TestQNA = () => {
       tempUserAnswerObject[questionNumber++] = user_answer;
     }
   
-    //console.log('what is this',finalansRequest)
-  
     userAnswerObject = {
       ["UserAnswer"] : {
-        [finalansRequest] : tempUserAnswerObject
+        [questionSetRequest] : tempUserAnswerObject
       }
     }
-  
-    //console.log('give me object ', userAnswerObject);
   
     return userAnswerObject;
   }
@@ -131,38 +126,45 @@ const TestQNA = () => {
     {
       enabled : buttonClicked,
       onSuccess(data){
-        console.log('successfully fetched',data)
         navigate('/dashboard')
-        setButtonClicked(false);
       },
       onError(error){
         navigate('/dashboard')
-        setButtonClicked(false)
       },
       staleTime: Infinity
     }
   )
 
-  useEffect(()=>{
+  const clearAnswers = (passedArray) => {
 
-    //on unMount
-    return () => {
-      setQuestionSet(getquestionSet("","",""));
-      queryClient.invalidateQueries(['getQNATestResults'+moduleName+subjectName+testType]);
-        // Reset answers state
-    };
+    for(let i=0; i<passedArray.length; i++){
+      passedArray[i].user_answer = ""
+    }
+
+    return passedArray
+  }
+  
+  useEffect(()=>{
+    console.log('params passed : ',moduleName,subjectName,testType);
+    //update the questionSet set
+    var updatedQuestionSet = getquestionSet(subjectName, testType);
+
+    var clearedAnswers = clearAnswers(updatedQuestionSet)
+
+    console.log('updated question set superman',clearedAnswers)
+
+    setQuestionSet(clearedAnswers);
   },[])
 
   useEffect(()=>{
-    console.log('params passed : ',moduleName,subjectName,testType);
-    console.log('check em now',buttonClicked)
-    //update the questionSet set
-    setQuestionSet(getquestionSet(moduleName,subjectName,testType));
-  },[buttonClicked])
 
-  
+    return ()=>{
+      var emptyArray = []
+      setQuestionSet(emptyArray)
+      //console.log('unmounted component ####',questionSet)
+    };
 
-
+  },[])
 
   const handleAnswerChange = (index, value) => {
     const updatedAnswers = [...questionSet];
@@ -171,6 +173,7 @@ const TestQNA = () => {
   };
 
   const handleSubmit = () => {
+    queryClient.invalidateQueries(['getQNATestResults'+moduleName+subjectName+testType]);
     setButtonClicked(true);
   };
 

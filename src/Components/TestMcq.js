@@ -84,11 +84,13 @@ const getQuestionSet = (subjectName, testType) => {
 
 const MCQTestQNA = () => {
 
+  const { moduleName, subjectName, testType } = useParams();
+
   const [answers, setAnswers] = useState([]);
   const [mcqQuestions, setQuestions] = useState([]);
   const [userAnswerObject, setUserAnswerObject] = useState({})
-  const [buttonClicked, setButtonClicked] = useState(false);
-
+  const [buttonClicked,setButtonClicked] = useState(false);
+  
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -133,8 +135,6 @@ const MCQTestQNA = () => {
 
   }
 
-  const { moduleName, subjectName, testType } = useParams();
-
   //react query : useQuery
   const { data, isFetching, isError } = useQuery(
     ['getMcqTestResults'+moduleName+subjectName+testType],
@@ -142,13 +142,10 @@ const MCQTestQNA = () => {
     {
       enabled: buttonClicked, //initial fetch
       onSuccess(data) {
-        console.log('fetched Properly',data)
-        setButtonClicked(false)
         navigate('/dashboard')
       },
       onError(data){
         navigate('/dashboard')
-        setButtonClicked(false)
       },
       staleTime : Infinity
     }
@@ -185,9 +182,6 @@ const MCQTestQNA = () => {
     );
 
     setUserAnswerObject(userAnswerObjectSubmission)
-    // Send the user answer object to the server or perform further actions
-    // console.log('request object',requestObject)
-
 
     queryClient.invalidateQueries(['getMcqTestResults', moduleName, subjectName, testType]);
 
