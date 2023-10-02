@@ -90,6 +90,7 @@ const MCQTestQNA = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const apiEndpoint = 'http://127.0.0.1:8000/api/GetMcqRating/';
   // react query
@@ -132,20 +133,37 @@ const MCQTestQNA = () => {
 
   }
 
+  const { moduleName, subjectName, testType } = useParams();
+
   //react query : useQuery
   const { data, isFetching, isError } = useQuery(
-    ['getMcqTestResults'],
+    ['getMcqTestResults'+moduleName+subjectName+testType],
     () => fetchData(),
     {
       enabled: buttonClicked, //initial fetch
       onSuccess(data) {
         console.log('fetched Properly',data)
+        setButtonClicked(false)
+        navigate('/dashboard')
+      },
+      onError(data){
+        navigate('/dashboard')
+        setButtonClicked(false)
       },
       staleTime : Infinity
     }
   )
 
-  const { moduleName, subjectName, testType } = useParams();
+
+  useEffect(()=>{
+
+    //on unMount
+    return () => {
+      queryClient.invalidateQueries(['getMcqTestResults'+moduleName+subjectName+testType]);
+      setAnswers([]);  // Reset answers state
+      setUserAnswerObject({});  // Reset userAnswerObject state
+    };
+  },[])
   
 
   useEffect(() => {
@@ -169,6 +187,9 @@ const MCQTestQNA = () => {
     setUserAnswerObject(userAnswerObjectSubmission)
     // Send the user answer object to the server or perform further actions
     // console.log('request object',requestObject)
+
+
+    queryClient.invalidateQueries(['getMcqTestResults', moduleName, subjectName, testType]);
 
     setButtonClicked(true);
   };

@@ -154,35 +154,35 @@ function Dashboard() {
     const testType = takeTest[2]; // Replace with your dynamic value
     console.log('Navigation done ',`/test/${moduleName}/${subjectName}/${testType}`)
 
-    if(moduleName!=="" && subjectName!=="" && testType!=="" && moduleName=="m1"){
-
-      if(testType==='exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks>-1){
-        navigate(`/test-mcq/${moduleName}/${subjectName}/${testType}`);
-      }
-      else if(testType==='entryTest'){
-        navigate(`/test-mcq/${moduleName}/${subjectName}/${testType}`);
-      }
-      else{
+    if (moduleName !== "" && subjectName !== "" && testType !== "" && moduleName === "m1") {
+      const encodedSubjectName = encodeURIComponent(subjectName);
+      const encodedModuleName = encodeURIComponent(moduleName);
+      const encodedTestType = encodeURIComponent(testType);
+    
+      if (testType === 'exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks > -1) {
+        navigate(`/test-mcq/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else if (testType === 'entryTest') {
+        navigate(`/test-mcq/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else {
         // handle modal closer here
-        navigate(`/dashboard`)
+        navigate(`/dashboard`);
       }
-
-        
     }
     
-    if(moduleName!=="" && subjectName!=="" && testType!=="" && moduleName=="m2"){
-      
-      if(testType==='exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks>-1){
-        navigate(`/test/${moduleName}/${subjectName}/${testType}`);
+    if (moduleName !== "" && subjectName !== "" && testType !== "" && moduleName === "m2") {
+      const encodedSubjectName = encodeURIComponent(subjectName);
+      const encodedModuleName = encodeURIComponent(moduleName);
+      const encodedTestType = encodeURIComponent(testType);
+    
+      if (testType === 'exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks > -1) {
+        navigate(`/test/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else if (testType === 'entryTest') {
+        navigate(`/test/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else {
+        navigate(`/dashboard`);
       }
-      else if(testType==='entryTest'){
-        navigate(`/test/${moduleName}/${subjectName}/${testType}`);
-      }
-      else{
-        navigate(`/dashboard`)
-      }
-
     }
+    
 
     setOpen(false);
   };

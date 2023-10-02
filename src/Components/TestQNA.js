@@ -5,16 +5,15 @@ import TestTitleCard from './TestTitleCard';
 import { cnEntryTest,dbmsEntryTest,osEntryTest } from '../Data/QNA Entry Tests/ALL_ENTRY_TEST';
 import { cnExitTest,dbmsExitTest,osExitTest } from '../Data/QNA Entry Tests/ALL_EXIT_TEST'; 
 import { useParams } from 'react-router-dom';
-import { TestTotalMarks } from '../Data/TestHistory'
 import { useNavigate } from 'react-router-dom';
 import '../../src/App.css'
-import { isError, useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import ErrorLoader from './ErrorLoader';
 import Spinner from './Spinner';
 
 var globalFinalAns = cnEntryTest
 
-const getQuestionSet = (moduleName,subjectName,testType) =>{
+const getquestionSet = (moduleName,subjectName,testType) =>{
 
 
   if(testType === 'entryTest'){
@@ -66,27 +65,27 @@ const TestQNA = () => {
 
   const { moduleName, subjectName, testType } = useParams();
 
-  const [questions,setAnswers] = useState([]);
+  const [questionSet,setQuestionSet] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
 
-  function makeReqObject(questions){
+  function makeReqObject(questionSet){
 
-    //let finalans = getQuestionSet(moduleName, subjectName, testType);
     let finalansRequest = globalFinalAns;
   
     var userAnswerObject = {}, tempUserAnswerObject = {}
   
     var questionNumber = 1;
   
-    for (const entry of questions) {
+    for (const entry of questionSet) {
       const { user_answer } = entry;
       tempUserAnswerObject[questionNumber++] = user_answer;
     }
   
-    console.log('what is this',finalansRequest)
+    //console.log('what is this',finalansRequest)
   
     userAnswerObject = {
       ["UserAnswer"] : {
@@ -94,7 +93,7 @@ const TestQNA = () => {
       }
     }
   
-    console.log('give me object ', userAnswerObject);
+    //console.log('give me object ', userAnswerObject);
   
     return userAnswerObject;
   }
@@ -102,7 +101,7 @@ const TestQNA = () => {
   
   const fetchData = async () => {
     try {
-      var reqObj = makeReqObject(questions);
+      var reqObj = makeReqObject(questionSet);
 
       console.log('request object I need',reqObj)
 
@@ -127,33 +126,48 @@ const TestQNA = () => {
   }
 
   const { data, isFetching, isError } = useQuery(
-    ['getQNATestResults'],
+    ['getQNATestResults'+moduleName+subjectName+testType],
     () => fetchData(),
     {
       enabled : buttonClicked,
       onSuccess(data){
         console.log('successfully fetched',data)
+        navigate('/dashboard')
+        setButtonClicked(false);
+      },
+      onError(error){
+        navigate('/dashboard')
+        setButtonClicked(false)
       },
       staleTime: Infinity
     }
   )
 
-  // const handleNavigate = () => {
-  //   // Use the navigate function to navigate to a specific route
-  //   navigate('/dashboard');
-  // };
+  useEffect(()=>{
+
+    //on unMount
+    return () => {
+      setQuestionSet(getquestionSet("","",""));
+      queryClient.invalidateQueries(['getQNATestResults'+moduleName+subjectName+testType]);
+        // Reset answers state
+    };
+  },[])
 
   useEffect(()=>{
     console.log('params passed : ',moduleName,subjectName,testType);
-    //update the questions set
-    setAnswers(getQuestionSet(moduleName,subjectName,testType));
-  },[])
+    console.log('check em now',buttonClicked)
+    //update the questionSet set
+    setQuestionSet(getquestionSet(moduleName,subjectName,testType));
+  },[buttonClicked])
+
+  
+
 
 
   const handleAnswerChange = (index, value) => {
-    const updatedAnswers = [...questions];
+    const updatedAnswers = [...questionSet];
     updatedAnswers[index].user_answer = value;
-    setAnswers(updatedAnswers);
+    setQuestionSet(updatedAnswers);
   };
 
   const handleSubmit = () => {
@@ -170,14 +184,14 @@ const TestQNA = () => {
 
   return (
     <>
-      { questions.length > 0 ? ( 
+      { questionSet.length > 0 ? ( 
         <div style={{
           background:"#F0EBF8",
           padding: '20px'
         }}>
           <Container maxWidth="md">
             <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
-              {questions.map((question, index) => (
+              {questionSet.map((question, index) => (
                 <Card key={index} id="navbarFont" style={{ marginBottom: '20px', padding: '10px' }}>
                   <CardContent id={`answer-${index}`}>
                     <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>{`Question ${index + 1}: ${question.question}`}</p>
@@ -187,7 +201,7 @@ const TestQNA = () => {
                       variant="outlined"
                       fullWidth
                       multiline
-                      value={questions[index].user_answer}
+                      value={questionSet[index].user_answer}
                       onChange={(e) => handleAnswerChange(index, e.target.value)}
                       style={{ marginTop: '10px' }}
                     />
