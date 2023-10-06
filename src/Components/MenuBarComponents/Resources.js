@@ -18,7 +18,6 @@ function Resources() {
   const apiEndpoint = 'http://127.0.0.1:8000/api/dbaccess/get-resources/';
 
   const [test, setTest] = useState('dbms');
-  //const queryClient = useQueryClient();
 
   const fetchData = async (subject) => {
     try {
@@ -64,8 +63,40 @@ function Resources() {
     console.log(data);
   }, [data]);
 
+  // since we fetch results dynamically need to render the title while loading happens
   if (isFetching) {
-    return <Spinner />;
+    return (
+      <div style={{ marginTop: '50px' }}>
+        <div>
+          <h1 id="headingFont" style={{ textAlign: 'center', margin: '10px' }}>
+            Resources
+          </h1>
+          <Divider></Divider>
+        </div>
+        <div>
+          <FormControl style={{ marginTop: '20px', marginBottom: '20px', minWidth: '150px' }}>
+            <InputLabel id="navbarFont">Module</InputLabel>
+            <Select
+              id="navbarFont"
+              label="Module."
+              value={test}
+              onChange={handleChange}
+            >
+              <MenuItem id="navbarFont" value="dbms">
+                DBMS
+              </MenuItem>
+              <MenuItem id="navbarFont" value="cn">
+                CN
+              </MenuItem>
+              <MenuItem id="navbarFont" value="os">
+                OS
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <Spinner />;
+        </div>
+      </div>
+    )
   }
 
   if (isError) {
@@ -81,7 +112,7 @@ function Resources() {
         <Divider></Divider>
       </div>
       <div>
-        <FormControl style={{ marginBottom: '20px', minWidth: '150px' }}>
+        <FormControl style={{ marginTop: '20px', marginBottom: '20px', minWidth: '150px' }}>
           <InputLabel id="navbarFont">Module</InputLabel>
           <Select
             id="navbarFont"
