@@ -18,6 +18,7 @@ function Resources() {
   const apiEndpoint = 'http://127.0.0.1:8000/api/dbaccess/get-resources/';
 
   const [test, setTest] = useState('dbms');
+  const [] = useState()
 
   const fetchData = async (subject) => {
     try {
@@ -39,6 +40,19 @@ function Resources() {
       throw error;
     }
   };
+
+  // const urlSplitter = (urlString) => {
+  //   if(urlString[urlString.length-1]==='/'){
+  //       urlString = urlString.substring(0,urlString.length-1)
+  //   }
+    
+  //   urlElements = []
+    
+  //   // delimiters : "https://", "/"
+  //   urlElements = urlString.split("https://")[1].split("/")
+    
+  //   return urlElements;
+  // }
 
   const { data, isFetching, isError, refetch } = useQuery(
     ['getResources', test],
@@ -133,16 +147,35 @@ function Resources() {
         </FormControl>
       </div>
       {/* Render your fetched data as Material-UI cards */}
-      <div>
+      <div id="navbarFont">
         {data.resources && Array.isArray(data.resources) && data.resources.length > 0 ? (
           <div>
             {data.resources.map((item,index) => (
-              <Card key={index} style={{ marginBottom: '10px' }}>
-                <CardContent>
-                  {/* <Typography variant="h6">{item.title}</Typography>
-                  <Typography variant="body2">{item.description}</Typography> */}
-                  <img src={`https://s2.googleusercontent.com/s2/favicons?domain=${item}`} alt="Favicon" />
-                  <a href={item}>{item}</a>
+              <Card key={index} style={{ marginBottom: '20px' }}>
+                <CardContent style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+                  <img style={{height:'20px', width:'20px'}} src={`https://s2.googleusercontent.com/s2/favicons?domain=${item}`} alt="Favicon" />
+                  <div>
+                    <a href={item} target="_blank">
+                      <div style={{ display:'flex', justifyContent:'space-around' }}>
+                        {
+                          item.split("https://")[1].split("/").reverse().map((tags,index,array)=>(
+                            tags!=="" && tags.length>=3 &&  
+                              <div key={index} style={{
+                                margin:'10px',
+                                backgroundColor: (index===array.length-1) ? '#333333' : '#DCDCDC',
+                                color: (index===array.length-1) ? 'white' : '#000000',
+                                padding:'2px',
+                                paddingLeft: '10px',
+                                paddingRight: '10px',
+                                borderRadius: '25px',
+                              }}>
+                                {tags}
+                              </div>  
+                          ))
+                        }
+                      </div>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             ))}
