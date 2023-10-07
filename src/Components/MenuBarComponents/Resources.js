@@ -41,19 +41,6 @@ function Resources() {
     }
   };
 
-  // const urlSplitter = (urlString) => {
-  //   if(urlString[urlString.length-1]==='/'){
-  //       urlString = urlString.substring(0,urlString.length-1)
-  //   }
-    
-  //   urlElements = []
-    
-  //   // delimiters : "https://", "/"
-  //   urlElements = urlString.split("https://")[1].split("/")
-    
-  //   return urlElements;
-  // }
-
   const { data, isFetching, isError, refetch } = useQuery(
     ['getResources', test],
     () => fetchData(test + 'EntryTest'),

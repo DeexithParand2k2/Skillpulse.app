@@ -191,7 +191,6 @@ function TestsTaken() {
           </Box>
 
         </Card>
-
           {
             cardContent.map((content, idx) => (
               <Card sx={{ 
