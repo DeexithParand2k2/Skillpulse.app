@@ -53,17 +53,9 @@ export default function Login() {
       body: raw,
     };
     
-    fetch("http://localhost:8000/api/token-auth/", requestOptions)   //enter login post end point.  
+    fetch("http://localhost:8000/api/token-auth/", requestOptions)   //enter login post end point.
       .then(response=>response.json())
       .then(result => {
-<<<<<<< HEAD
-        console.log(result)
-        setToken(result.token);
-        sessionStorage.setItem("myToken",result.token);
-
-        if (typeof result.token === 'undefined' || result.token === "") {
-          // Handle the case where token is undefined or an empty string.
-=======
 
         console.log(result)
 
@@ -75,21 +67,12 @@ export default function Login() {
           console.log("Token:"+result.token);  
         }
         else{
->>>>>>> origin/first-review
           console.log('wrong credentials');
           setMsg('Wrong credentials');
           setSev('error');
           setOpenSnackbar(true);
-<<<<<<< HEAD
-        } else {
-          navigate('/dashboard');
-        }
-
-        console.log("Token:"+result.token);  
-=======
         } 
         
->>>>>>> origin/first-review
       })
       .catch(error => console.log('error', error));
 
