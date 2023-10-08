@@ -24,8 +24,8 @@ import { useNavigate, useParams } from 'react-router';
 import MCQQuestion from '../Components/MCQQuestion'
 import TestTitleCard from "./TestTitleCard";
 import { QueryClient, useQuery, useQueryClient } from 'react-query';
-import Spinner from './Spinner';
-import ErrorLoader from './ErrorLoader';
+import Spinner from './ErrorHandling/LoadingScreen';
+import ErrorLoader from './ErrorHandling/ErrorLoader';
 
 var nameOfTest = '';
 

@@ -1,9 +1,9 @@
 import './Styles/App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TestQNA from './Components/TestQNA';
-import Home from './Components/Home';
-import Login from './Components/Login';
-import Spinner from './Components/Spinner'
+import Home from './Pages/LandingPage/Home';
+import Login from './Pages/LandingPage/Login';
+import Spinner from './Components/ErrorHandling/LoadingScreen'
 import MainDrawer from './Components/MainDrawer';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import TestMcq from './Components/TestMcq';

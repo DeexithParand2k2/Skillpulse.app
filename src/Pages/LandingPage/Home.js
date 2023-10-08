@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Snackbar from '@mui/material/Snackbar';
-import SnackbarContent from '@mui/material/SnackbarContent';
 import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from "react-router";
 
@@ -64,18 +63,14 @@ const Home = () => {
             </li>
           </ul>
         </nav>
+
         <div className="w-3/12 flex justify-end">
-        <a href="/login" className="btn btn-green mr-4 bg-slate-600 text-white px-4 py-2 rounded-[25px] hover:drop-shadow-xl">
+          <a href="/login" className="btn btn-green mr-4 bg-slate-600 text-white px-4 py-2 rounded-[25px] hover:drop-shadow-xl">
             Login
           </a>
         </div>
       </header>
     </div>
-
-
-
-
-
 
       {/* Home page content */}
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mt-12">

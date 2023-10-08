@@ -3,14 +3,14 @@ import IconButton from '@mui/material/IconButton';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Avatar from '@mui/material/Avatar';
 
-const EmployeeItem = ({ name, eis, company, ctc, idx }) => {
+const EmployeeItem = ({ name, eis, company, ctc }) => {
 
   const avatarSrc = `https://avatars.dicebear.com/api/identicon/${name}.svg`;
 
   return (
     <Card sx={{ display: "flex", margin:'10px' }} >
 
-      <Box width="100%"> {/* Set the width to 100% */}
+      <Box width="100%">
         <CardContent sx={{ display: "flex", flexDirection:'row', justifyContent:'space-between', alignItems:'center' , width: '100%' }}> {/* Set the width to 100% */}
           
           <div style={{width:'100px', display:'flex', justifyContent:'center'}}>

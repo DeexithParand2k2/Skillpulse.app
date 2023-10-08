@@ -31,8 +31,8 @@ import ModuleAnalysis from './ModuleAnalysis';
 import ModuleSwitch from './Graphmodules/ModuleSwitch';
 import ModuleSwitchSplit from './SplitWiseComponents/ModuleSwitchSplit';
 import TestSwitchSplit from './SplitWiseComponents/TestSwitchSplit';
-import Spinner from './Spinner';
-import ErrorLoader from './ErrorLoader';
+import Spinner from './ErrorHandling/LoadingScreen';
+import ErrorLoader from './ErrorHandling/ErrorLoader';
 import { useQuery } from 'react-query';
 import '../Styles/App.css'
 

@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-
 import EmployeeList from "./EmployeeList";
-
-import TitleHead from "./TitleHead";
 
 import {
   FormControl,
@@ -13,9 +10,9 @@ import {
 } from "@mui/material";
 
 import { Card, Box, CardContent, Typography, CardMedia } from "@mui/material";
-import ErrorLoader from "../ErrorLoader";
+import ErrorLoader from "../ErrorHandling/ErrorLoader";
 import { useQuery } from 'react-query';
-import Spinner from "../Spinner";
+import Spinner from "../ErrorHandling/LoadingScreen";
 
 
 const EmploymentDetails = () => {

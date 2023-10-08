@@ -8,8 +8,8 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import '../../src/Styles/App.css'
 import { useQuery, useQueryClient } from 'react-query';
-import ErrorLoader from './ErrorLoader';
-import Spinner from './Spinner';
+import ErrorLoader from './ErrorHandling/ErrorLoader';
+import Spinner from './ErrorHandling/LoadingScreen';
 
 var nameOfTest = ""
 

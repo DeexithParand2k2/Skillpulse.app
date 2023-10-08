@@ -9,35 +9,6 @@ function CarousalTests({userChoiceSubject,changeChoiceTestCallback,userChoiceMod
 
   const [testAttendance,updateTestAttendance] = useState({})
 
-  //check the testHistory for selected Subject : namesake
-  useEffect(()=>{
-
-    // if(TestModulesHistory[userChoiceModule]!==""){
-    //   var storekey = "nf"
-    //   //find the key, by looping through
-    //   for(const key in TestModulesHistory[userChoiceModule]){
-    //     if(TestModulesHistory[userChoiceModule][key].subjectName === userChoiceSubject){
-    //       storekey = key;
-    //       break;
-    //     }
-    //   }      
-
-    //   if(storekey!=="nf"){
-    //     var obj = {
-    //       entryTest : TestModulesHistory[userChoiceModule][storekey].entryTest,
-    //       exitTest : TestModulesHistory[userChoiceModule][storekey].exitTest,
-    //     };
-    //     updateTestAttendance(obj);
-    //   }
-
-    // }
-
-    
-    
-    
-
-  },[userChoiceSubject,userChoiceModule])
-
   return (
     <div>
       <Divider  style={{position:'relative',width:'100%'}} />

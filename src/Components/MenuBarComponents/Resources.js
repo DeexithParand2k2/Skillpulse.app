@@ -10,8 +10,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useQuery, useQueryClient } from 'react-query';
-import ErrorLoader from '../ErrorLoader';
-import Spinner from '../Spinner';
+import ErrorLoader from '../ErrorHandling/ErrorLoader';
+import Spinner from '../ErrorHandling/LoadingScreen';
 import '../../Styles/App.css';
 
 function Resources() {

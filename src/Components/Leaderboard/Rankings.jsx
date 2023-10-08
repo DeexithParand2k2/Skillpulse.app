@@ -3,8 +3,8 @@ import RankingList from "./RankingList";
 import { Box, Typography, Modal } from "@mui/material";
 import ComparisonTable from "./ComparisonTable";
 import { useQuery } from "react-query";
-import Spinner from "../Spinner";
-import ErrorLoader from "../ErrorLoader";
+import Spinner from "../ErrorHandling/LoadingScreen";
+import ErrorLoader from "../ErrorHandling/ErrorLoader";
 import { Divider } from '@mui/material'
 
 const style = {

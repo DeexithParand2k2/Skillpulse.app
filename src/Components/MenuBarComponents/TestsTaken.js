@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { TestModulesHistory, TestTotalMarks } from '../../Data/TestHistory';
-import Loading from '../Spinner'
-import ErrorLoader from '../ErrorLoader'
+import Loading from '../ErrorHandling/LoadingScreen'
+import ErrorLoader from '../ErrorHandling/ErrorLoader'
 import '../../Styles/App.css'
 import {
   Divider,
 } from '@mui/material';
 import { useQuery } from 'react-query';
-import Spinner from '../Spinner';
+import Spinner from '../ErrorHandling/LoadingScreen';
 import { Card, Box, CardContent, Typography, CardMedia } from "@mui/material";
 
 const apiEndpoint = "http://localhost:8000/api/dbaccess/get-total-marks/";
