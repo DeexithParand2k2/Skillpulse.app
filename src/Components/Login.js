@@ -51,14 +51,14 @@ export default function Login() {
       body: raw,
     };
     
-    fetch("http://localhost:8000/api/token-auth/", requestOptions)   //enter login post end point.
+    fetch("http://localhost:8000/api/token-auth/", requestOptions)   //enter login post end point.  
       .then(response=>response.json())
       .then(result => {
         console.log(result)
         setToken(result.token);
-        sessionStorage.setItem("myToken",token);
+        sessionStorage.setItem("myToken",result.token);
 
-        if (typeof token === 'undefined' || token === "") {
+        if (typeof result.token === 'undefined' || result.token === "") {
           // Handle the case where token is undefined or an empty string.
           console.log('wrong credentials');
           setMsg('Wrong credentials');
@@ -68,7 +68,7 @@ export default function Login() {
           navigate('/dashboard');
         }
 
-        console.log("Token:"+token);  
+        console.log("Token:"+result.token);  
       })
       .catch(error => console.log('error', error));
 
@@ -184,7 +184,7 @@ export default function Login() {
               alignItems: 'center',
             }}
           >
-            <div class="form-toggle">
+            <div className="form-toggle">
               <button id="login-toggle" onClick={toggleLogin}>Log In</button>
               <button id="signup-toggle" onClick={toggleSignup}>Sign Up</button>
             </div>

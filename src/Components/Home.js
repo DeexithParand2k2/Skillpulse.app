@@ -95,7 +95,7 @@ const Home = () => {
                 <div className="mt-8 gap-4">
                   <a
                     className="block w-1/3 text-center rounded-[30px] bg-slate-600 px-8 py-3 text-sm font-medium text-white shadow hover:bg-slate-700 focus:outline-none focus:ring active:bg-slate-500"
-                    href=""
+                    href="/explore"
                   >
                     Explore
                   </a>
