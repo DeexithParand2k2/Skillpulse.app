@@ -12,7 +12,7 @@ import {
 import { useQuery, useQueryClient } from 'react-query';
 import ErrorLoader from '../ErrorLoader';
 import Spinner from '../Spinner';
-import '../../App.css';
+import '../../Styles/App.css';
 
 function Resources() {
   const apiEndpoint = 'http://127.0.0.1:8000/api/dbaccess/get-resources/';

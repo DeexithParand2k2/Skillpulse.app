@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {subjectIconLinks} from '../Data/ModulesData'
-import '../App.css'
+import '../Styles/App.css'
 
 // Styling the card component
 const ElegantCard = styled(Card)(({ theme }) => ({

@@ -34,7 +34,7 @@ import TestSwitchSplit from './SplitWiseComponents/TestSwitchSplit';
 import Spinner from './Spinner';
 import ErrorLoader from './ErrorLoader';
 import { useQuery } from 'react-query';
-import '../App.css'
+import '../Styles/App.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

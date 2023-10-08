@@ -11,7 +11,7 @@ import {
   Avatar
 } from "@mui/material";
 
-import '../../App.css'
+import '../../Styles/App.css'
 
 const RankingItem = ({
   ranking,

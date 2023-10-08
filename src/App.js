@@ -1,4 +1,4 @@
-import './App.css';
+import './Styles/App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TestQNA from './Components/TestQNA';
 import Home from './Components/Home';
@@ -23,7 +23,6 @@ function App() {
 
           <Route path="/dashboard/*" element={<MainDrawer />} />
 
-          {/* {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/loading" element={<Spinner />} />
           <Route path="/login" element={<Login />} />
           <Route path="/test" element={<TestQNA />} />

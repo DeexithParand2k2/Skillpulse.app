@@ -5,7 +5,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CarousalModules from './CarousalComponents/CarousalModules';
 import CarousalSubjects from './CarousalComponents/CarousalSubjects';
 import CarousalTests from './CarousalComponents/CarousalTests'
-import '../App.css'
+import '../Styles/App.css'
 
 export default function TextCarousel({getCombinedChoices}) {
 

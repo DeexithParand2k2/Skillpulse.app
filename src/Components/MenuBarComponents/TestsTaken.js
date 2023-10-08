@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TestModulesHistory, TestTotalMarks } from '../../Data/TestHistory';
 import Loading from '../Spinner'
 import ErrorLoader from '../ErrorLoader'
-import '../../App.css'
+import '../../Styles/App.css'
 import {
   Divider,
 } from '@mui/material';

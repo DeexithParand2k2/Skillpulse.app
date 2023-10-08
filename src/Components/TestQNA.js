@@ -6,7 +6,7 @@ import { cnEntryTest,dbmsEntryTest,osEntryTest } from '../Data/QNA Entry Tests/A
 import { cnExitTest,dbmsExitTest,osExitTest } from '../Data/QNA Entry Tests/ALL_EXIT_TEST'; 
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import '../../src/App.css'
+import '../../src/Styles/App.css'
 import { useQuery, useQueryClient } from 'react-query';
 import ErrorLoader from './ErrorLoader';
 import Spinner from './Spinner';

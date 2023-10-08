@@ -5,7 +5,7 @@ import {
     Select,
     MenuItem
 } from '@mui/material';
-import '../../App.css'
+import '../../Styles/App.css'
 
 function TestSwitchSplit({changeTestTypeSplitWiseCallback}) {
     const [currentTest, changeTestAnalysis] = useState('entryTest'); // Default state is 'entryTest'

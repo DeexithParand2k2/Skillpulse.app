@@ -11,7 +11,7 @@ import {
     Typography,
     useScrollTrigger,
 } from '@mui/material';
-import '../../src/App.css'
+import '../../src/Styles/App.css'
 
 const MCQQuestion = ({ question, index, handleAnswerChange }) => {
     var {
