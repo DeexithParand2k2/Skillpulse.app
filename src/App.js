@@ -7,11 +7,8 @@ import Login from './Components/Login';
 import Spinner from './Components/Spinner'
 import MainDrawer from './Components/MainDrawer';
 import { QueryClient, QueryClientProvider } from 'react-query';
-<<<<<<< HEAD
-import Explore from './Components/Explore';
-=======
 import TestMcq from './Components/TestMcq';
->>>>>>> origin/first-review
+import Explore from './Components/Explore';
 
 function App() {
 
