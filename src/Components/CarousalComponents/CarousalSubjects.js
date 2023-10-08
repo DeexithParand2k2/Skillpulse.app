@@ -4,11 +4,12 @@ import ElegantCard from '../ElegantCard'
 import '../../Styles/EvaluationStyles.css'
 import { Divider } from '@mui/material';
 
-function CarousalSubjects({userChoiceModule}) {
+function CarousalSubjects({userChoiceModule,changeChoiceSubjectCallback}) {
   
   const [coreSubjects,updateCoreSubjects] = useState([]);
 
   //whenever the prop in the parent changes the child also changes
+  //When I make a change in the carousal module, it has to update here
   useEffect(()=>{
     if(userChoiceModule==='m1'){
         updateCoreSubjects(Object.values(modules.m1))
@@ -27,12 +28,14 @@ function CarousalSubjects({userChoiceModule}) {
             {coreSubjects!==undefined && coreSubjects.length!==0 ?
                 ( 
                     coreSubjects.map((item,index) => (
-                        <div key={index}>
+                        <div key={index} onClick={()=>{
+                            changeChoiceSubjectCallback(item.toLowerCase())
+                        }}>
                             <ElegantCard cardName={item} />
                         </div>
                     ))
                     
-                ) : <h3>No modules selected yet</h3>
+                ) : <h3>SELECT MODULE TO VIEW SUBJECT</h3>
             }
         </div>
     </div>

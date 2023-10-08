@@ -1,4 +1,4 @@
-.Carousal-Modules-Holder, .Carousal-Subjects-Holder{
+.Carousal-Modules-Holder, .Carousal-Subjects-Holder, .Carousal-Tests-Holder{
     display: flex;
     justify-content: center;
     align-items: center;

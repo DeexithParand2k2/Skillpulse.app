@@ -1,0 +1,31 @@
+.form-toggle{
+    position: relative;
+    width:100%;
+    height:auto;
+}
+
+.form-toggle button{
+    width:50%;
+    float:left;
+    padding:1em;
+    margin-bottom:1em;
+    border:none;
+    transition: 0.2s;
+    font-size:1.1em;
+    font-weight: bold;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.form-toggle button:nth-child(1){
+    border-bottom-right-radius: 20px;
+}
+
+.form-toggle button:nth-child(2){
+    border-bottom-left-radius: 20px;
+}
+
+#login-toggle{
+    background:skyblue;
+    color:#ffff;
+}
