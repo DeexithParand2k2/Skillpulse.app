@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {subjectIconLinks} from '../Data/ModulesData'
+import '../App.css'
 
 // Styling the card component
 const ElegantCard = styled(Card)(({ theme }) => ({
@@ -12,11 +13,11 @@ const ElegantCard = styled(Card)(({ theme }) => ({
   justifyContent: 'center',
   alignItems : 'center', 
   
-  height: '150px',
-  width: '150px',
+  height: '135px',
+  width: '135px',
   border: `1px solid black`,
   background: 'white',
-  margin: '10px',
+  margin: '5px 15px 5px 15px',
   // background: 'linear-gradient(to bottom, white, lightgray)',
   // boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
   transition: 'transform 0.3s ease, background 0.3s ease, border-color 0.3s ease', // Transition on hover
@@ -35,12 +36,12 @@ const ElegantCard = styled(Card)(({ theme }) => ({
 
 export default function CustomCard({cardName}) {
   return (
-    <ElegantCard variant="outlined">
+    <ElegantCard id="navbarFont" variant="outlined">
       {
         (cardName.toLowerCase() in subjectIconLinks) ? 
 
         <div>
-          <img style={{ width: '40px', height: '40px', margin:'20px' }} src={subjectIconLinks[cardName.toLowerCase()]} alt="Icon" />
+          <img style={{ width: '40px', height: '40px', margin:'15px' }} src={subjectIconLinks[cardName.toLowerCase()]} alt="Icon" />
         </div>
 
         :
@@ -49,7 +50,7 @@ export default function CustomCard({cardName}) {
       }
       
 
-      <Typography variant="h6" textAlign="center" component="div">
+      <Typography variant="p" sx={{ fontSize:'18px'}} textAlign="center" component="div">
           {cardName===undefined || cardName==="" ? "NULL" : cardName}
       </Typography>
 

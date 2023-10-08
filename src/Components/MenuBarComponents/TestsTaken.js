@@ -14,7 +14,7 @@ const apiEndpoint = "http://localhost:8000/api/dbaccess/get-total-marks/";
 
 function TestsTaken() {
 
-  const { data, isLoading, isError } = useQuery('dataKey', fetchData);
+  const { data, isLoading, isError } = useQuery('testsTakenRequestKey', fetchData);
 
   const [testModulesHistory, changeTestModulesHistory] = useState(TestModulesHistory);
   const [cardContent, setCardContent] = useState([]);
@@ -84,7 +84,6 @@ function TestsTaken() {
     })
   
     return moduleOneArray.concat(moduleTwoArray)
-  
   }
 
   async function fetchData(){
@@ -105,11 +104,29 @@ function TestsTaken() {
 
   }
 
+  const sortArrayOnTime = (array) => {
+
+    array.sort((a,b)=>{
+
+      const timeA = new Date(a.time)
+      const timeB = new Date(b.time)
+
+      return timeB-timeA
+
+    })
+
+    return array;
+
+  }
+
   useEffect(()=>{
 
     if(data){
       changeTestModulesHistory(data)
-      setCardContent(updateCardContent(data))
+
+      let retCardContent = updateCardContent(data)
+      let sortedCardContent = sortArrayOnTime(retCardContent) 
+      setCardContent(sortedCardContent)
       console.log(cardContent)
     }
 
@@ -143,7 +160,7 @@ function TestsTaken() {
                 component="div"
                 sx={{width:'100px', textAlign:'center'}}
               >
-                Module
+                MODULE
               </Typography>
 
               <Typography
@@ -151,7 +168,7 @@ function TestsTaken() {
                 component="div"
                 sx={{width:'100px', textAlign:'center'}}
               >
-                Subject
+                SUBJECT
               </Typography>
 
               <Typography
@@ -159,7 +176,7 @@ function TestsTaken() {
                 component="div"
                 sx={{width:'100px', textAlign:'center'}}
               >
-                Test Type
+                TEST TYPE
               </Typography>
 
               <Typography
@@ -167,17 +184,21 @@ function TestsTaken() {
                 component="div"
                 sx={{width:'100px', textAlign:'center'}}
               >
-                Time
+                DATE<br/>TIME
               </Typography>
 
             </CardContent>
           </Box>
 
         </Card>
-
           {
             cardContent.map((content, idx) => (
-              <Card sx={{ display: "flex", margin:'10px' }} key={idx} >
+              <Card sx={{ 
+                display: "flex", 
+                margin:'10px',
+                color: idx===0 ? 'white' : 'black',
+                backgroundColor: idx===0 ? 'black' : 'white'
+              }} key={idx} >
                 <Box width="100%">
                   <CardContent sx={{ display: "flex", flexDirection:'row', justifyContent:'space-between', alignItems:'center' , width: '100%' }}>
                     <Typography
@@ -185,28 +206,28 @@ function TestsTaken() {
                       component="div"
                       sx={{width:'100px', textAlign:'center'}}
                     >
-                      {content.module}
+                      {content.module.toUpperCase()}
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       component="div"
                       sx={{width:'100px', textAlign:'center'}}
                     >
-                      {content.subject}
+                      {content.subject.toUpperCase()}
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       component="div"
                       sx={{width:'100px', textAlign:'center'}}
                     >
-                      {content.testtype}
+                      {content.testtype.toUpperCase()==="ENTRYTEST" ? "ENTRY TEST" : "EXIT TEST"}
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       component="div"
                       sx={{width:'100px', textAlign:'center'}}
                     >
-                      {content.time}
+                      {content.time.toUpperCase()}
                     </Typography>
                   </CardContent>
                 </Box>

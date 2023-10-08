@@ -45,12 +45,12 @@ export default function SingleSubjectCard({singleSubject,subjectName}) {
                 style={{
                   display: "flex",
                   justifyContent: "space-around",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <h3>{subjectName.toUpperCase()}</h3>
                 <div>
-                  <img style={{ width: '30px', height: '30px' }} src={subjectIconLinks[subjectName]} alt="Icon" />
+                  <img style={{ width: '30px', height: '30px', marginLeft:'20px' }} src={subjectIconLinks[subjectName]} alt="Icon" />
                 </div>
               </div>
             }

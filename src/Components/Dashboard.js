@@ -34,6 +34,7 @@ import TestSwitchSplit from './SplitWiseComponents/TestSwitchSplit';
 import Spinner from './Spinner';
 import ErrorLoader from './ErrorLoader';
 import { useQuery } from 'react-query';
+import '../App.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -153,9 +154,35 @@ function Dashboard() {
     const testType = takeTest[2]; // Replace with your dynamic value
     console.log('Navigation done ',`/test/${moduleName}/${subjectName}/${testType}`)
 
-    if(moduleName!=="" && subjectName!=="" && testType!==""){
-      navigate(`/test/${moduleName}/${subjectName}/${testType}`);  
+    if (moduleName !== "" && subjectName !== "" && testType !== "" && moduleName === "m1") {
+      const encodedSubjectName = encodeURIComponent(subjectName);
+      const encodedModuleName = encodeURIComponent(moduleName);
+      const encodedTestType = encodeURIComponent(testType);
+    
+      if (testType === 'exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks > -1) {
+        navigate(`/test-mcq/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else if (testType === 'entryTest') {
+        navigate(`/test-mcq/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else {
+        // handle modal closer here
+        navigate(`/dashboard`);
+      }
     }
+    
+    if (moduleName !== "" && subjectName !== "" && testType !== "" && moduleName === "m2") {
+      const encodedSubjectName = encodeURIComponent(subjectName);
+      const encodedModuleName = encodeURIComponent(moduleName);
+      const encodedTestType = encodeURIComponent(testType);
+    
+      if (testType === 'exitTest' && totalMarks.entryTest[moduleName][subjectName].totalMarks > -1) {
+        navigate(`/test/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else if (testType === 'entryTest') {
+        navigate(`/test/${encodedModuleName}/${encodedSubjectName}/${encodedTestType}`);
+      } else {
+        navigate(`/dashboard`);
+      }
+    }
+    
 
     setOpen(false);
   };
@@ -226,6 +253,7 @@ function Dashboard() {
                   onClose={handleClose}
                   TransitionComponent={Transition}
                   className='Dialog-Container'
+                  id="navbarFont"
                 >
                   
                   <AppBar sx={{ position: 'relative' }}>
@@ -236,10 +264,24 @@ function Dashboard() {
                       >
                         <CloseIcon />
                       </IconButton>
-                      <Typography sx={{ ml: 2, flex: 1, fontSize:'14px' }} variant="p">
+                      <Typography sx={{ ml: 2, flex: 1, fontSize:'15px' }} variant="p">
                         CHOOSE TEST MODULES
                       </Typography>
-                      <Button color="inherit" variant="p" onClick={handleClose}>
+                      {/* <Button id="navbarFont" color="inherit" variant="p" onClick={handleClose}>
+                        Take Test
+                      </Button> */}
+                      <Button
+                        color="inherit"
+                        variant="outlined" // Use outlined variant for a subdued appearance
+                        sx={{
+                          fontSize:'14px',
+                          '&:hover': {
+                            color: 'lime', // Use a slightly transparent white for text color
+                            borderColor: 'lime', // Use a slightly transparent white for border color
+                          },
+                        }}
+                        onClick={handleClose}
+                      >
                         Take Test
                       </Button>
                     </Toolbar>

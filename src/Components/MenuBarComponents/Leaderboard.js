@@ -1,18 +1,19 @@
-import React from 'react'
-import { Divider } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import Rankings from '../Leaderboard/Rankings'
 
+// fetch the email here
 function Leaderboard() {
+
+  const [email,setEmail] = useState('yogi@gmail.com')
+
+  useEffect(()=>{
+    if(sessionStorage.getItem('myUseremail')){
+      setEmail(JSON.parse(sessionStorage.getItem('myUseremail')).username)
+    }
+  },[])
+
   return (
-    <div style={{marginTop:'50px'}}>
-        <div>
-            <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Leaderboard</h1>
-            <Divider></Divider>
-        </div>
-        <div>
-          <Rankings UserEmail={'yogi@gmail.com'} />
-        </div>
-    </div>
+    <Rankings UserEmail={email} />
   )
 }
 

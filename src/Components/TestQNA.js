@@ -5,201 +5,198 @@ import TestTitleCard from './TestTitleCard';
 import { cnEntryTest,dbmsEntryTest,osEntryTest } from '../Data/QNA Entry Tests/ALL_ENTRY_TEST';
 import { cnExitTest,dbmsExitTest,osExitTest } from '../Data/QNA Entry Tests/ALL_EXIT_TEST'; 
 import { useParams } from 'react-router-dom';
-import { TestTotalMarks } from '../Data/TestHistory'
 import { useNavigate } from 'react-router-dom';
+import '../../src/App.css'
+import { useQuery, useQueryClient } from 'react-query';
+import ErrorLoader from './ErrorLoader';
+import Spinner from './Spinner';
 
-var globalFinalAns = cnEntryTest
-
-const getQuestionSet = (moduleName,subjectName,testType) =>{
-
-
-  if(testType === 'entryTest'){
-
-    var finalans = [];
-
-    switch(subjectName) {
-      case 'cn':
-        finalans = cnEntryTest; 
-        globalFinalAns = "cnEntryTest";
-        break;
-      case 'dbms':
-        finalans = dbmsEntryTest; 
-        globalFinalAns = "dbmsEntryTest";
-        break;
-      case 'os':
-        finalans = osEntryTest; 
-        globalFinalAns = "osEntryTest";
-        break;
-      default:
-        finalans = [];
-    }
-  }
-  
-  if(testType === 'exitTest'){
-    switch(subjectName) {
-      case 'cn':
-        finalans = cnExitTest;
-        globalFinalAns = "cnExitTest"; 
-        break;
-      case 'dbms':
-        finalans = dbmsExitTest; 
-        globalFinalAns = "dbmsExitTest";
-        break;
-      case 'os':
-        finalans = osExitTest; 
-        globalFinalAns = "osExitTest";
-        break;
-      default:
-        finalans = [];
-    }
-  }
-
-  return finalans;
-}
-
-
-// function makeReqObject(questions,subjectName){
-  
-//   var userAnswerObject = {}, tempUserAnswerObject = {}
-
-//   var questionNumber = 1;
-
-//   for (const entry of questions) {
-//     const { user_answer } = entry;
-//     tempUserAnswerObject[questionNumber++] = user_answer;
-//   }
-
-//   //console.log(finalans)
-
-//   userAnswerObject = {
-//     ["UserAnswer"] : {
-//       [subjectName] : tempUserAnswerObject
-//     }
-//   }
-
-//   console.log('give me object ', userAnswerObject);
-
-//   return userAnswerObject;
-// }
+var nameOfTest = ""
 
 const TestQNA = () => {
 
   const { moduleName, subjectName, testType } = useParams();
 
-  const [questions,setAnswers] = useState([]);
+  const [questionSet,setQuestionSet] = useState([]);
+  const [buttonClicked,setButtonClicked] = useState(false);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
 
-  function makeReqObject(questions,subjectName){
+  const getquestionSet = (subjectName,testType) =>{
 
-    //let finalans = getQuestionSet(moduleName, subjectName, testType);
-    let finalansRequest = globalFinalAns;
+    if(testType === 'entryTest'){
+  
+      var questionPaper = [];
+  
+      switch(subjectName) {
+        case 'cn':
+          questionPaper = cnEntryTest; 
+          nameOfTest = "cnEntryTest";
+          break;
+        case 'dbms':
+          questionPaper = dbmsEntryTest; 
+          nameOfTest = "dbmsEntryTest";
+          break;
+        case 'os':
+          questionPaper = osEntryTest; 
+          nameOfTest = "osEntryTest";
+          break;
+        default:
+          questionPaper = [];
+      }
+    }
+    
+    if(testType === 'exitTest'){
+      switch(subjectName) {
+        case 'cn':
+          questionPaper = cnExitTest;
+          nameOfTest = "cnExitTest"; 
+          break;
+        case 'dbms':
+          questionPaper = dbmsExitTest; 
+          nameOfTest = "dbmsExitTest";
+          break;
+        case 'os':
+          questionPaper = osExitTest; 
+          nameOfTest = "osExitTest";
+          break;
+        default:
+          questionPaper = [];
+      }
+    }
+  
+    return questionPaper;
+  }
+
+
+  function makeReqObject(questionSet){
+
+    let questionSetRequest = nameOfTest;
   
     var userAnswerObject = {}, tempUserAnswerObject = {}
   
     var questionNumber = 1;
   
-    for (const entry of questions) {
+    for (const entry of questionSet) {
       const { user_answer } = entry;
       tempUserAnswerObject[questionNumber++] = user_answer;
     }
   
-    console.log('what is this',finalansRequest)
-  
     userAnswerObject = {
       ["UserAnswer"] : {
-        [finalansRequest] : tempUserAnswerObject
+        [questionSetRequest] : tempUserAnswerObject
       }
     }
-  
-    console.log('give me object ', userAnswerObject);
   
     return userAnswerObject;
   }
 
-  function hitServer(reqObj){
   
-    async function fetchData() {
-      try {
-        let token = sessionStorage.getItem('myToken');
-        navigate('/loading');
+  const fetchData = async () => {
+    try {
+      var reqObj = makeReqObject(questionSet);
 
-        const response = await fetch('http://127.0.0.1:8000/api/GetRating/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Token ' + token,
-          },
-          body: JSON.stringify(reqObj)
-        });
-    
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error('Error fetching data:');
-        return null;
+      console.log('request object I need',reqObj)
+
+      const response = await fetch('http://127.0.0.1:8000/api/GetRating/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + sessionStorage.getItem('myToken'),
+        },
+        body: JSON.stringify(reqObj)
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error
     }
-    
-    async function mainReq() {
-      const data = await fetchData();
-      if (data) {
-        console.log('Fetched data Yo :', data);
-        //updateTheGraphData(data); // Calc done in front end
-        TestTotalMarks = data
-        handleNavigate();
-      }
-    }
-    
-    mainReq();
-    
   }
 
-  const handleNavigate = () => {
-    // Use the navigate function to navigate to a specific route
-    navigate('/dashboard');
-  };
+  const { data, isFetching, isError } = useQuery(
+    ['getQNATestResults'+moduleName+subjectName+testType],
+    () => fetchData(),
+    {
+      enabled : buttonClicked,
+      onSuccess(data){
+        navigate('/dashboard')
+      },
+      onError(error){
+        navigate('/dashboard')
+      },
+      staleTime: Infinity
+    }
+  )
 
+  const clearAnswers = (passedArray) => {
+
+    for(let i=0; i<passedArray.length; i++){
+      passedArray[i].user_answer = ""
+    }
+
+    return passedArray
+  }
+  
   useEffect(()=>{
     console.log('params passed : ',moduleName,subjectName,testType);
-    //update the questions set
-    setAnswers(getQuestionSet(moduleName,subjectName,testType));
+    //update the questionSet set
+    var updatedQuestionSet = getquestionSet(subjectName, testType);
+
+    var clearedAnswers = clearAnswers(updatedQuestionSet)
+
+    console.log('updated question set superman',clearedAnswers)
+
+    setQuestionSet(clearedAnswers);
   },[])
 
+  useEffect(()=>{
+
+    return ()=>{
+      var emptyArray = []
+      setQuestionSet(emptyArray)
+      //console.log('unmounted component ####',questionSet)
+    };
+
+  },[])
 
   const handleAnswerChange = (index, value) => {
-    const updatedAnswers = [...questions];
+    const updatedAnswers = [...questionSet];
     updatedAnswers[index].user_answer = value;
-    setAnswers(updatedAnswers);
+    setQuestionSet(updatedAnswers);
   };
 
   const handleSubmit = () => {
-    //send the request here, loading bar and update in dashboard, connect react chart
-
-    //create a request object
-    var reqObj = makeReqObject(questions,subjectName);
-
-    //major part, hitting the backend endpoint
-    var response = hitServer(reqObj);
-
-
-    console.log('YAYYYY GOT RESPONSE',response)
+    queryClient.invalidateQueries(['getQNATestResults'+moduleName+subjectName+testType]);
+    setButtonClicked(true);
   };
+
+  if(isError){
+    return <ErrorLoader />
+  }
+
+  if(isFetching){
+    return <Spinner />
+  }
 
   return (
     <>
-      { questions.length > 0 ? ( 
-        <div style={{background:"#F0EBF8", padding: '20px'}}>
+      { questionSet.length > 0 ? ( 
+        <div style={{
+          background:"#F0EBF8",
+          padding: '20px'
+        }}>
           <Container maxWidth="md">
             <TestTitleCard moduleName={moduleName} subjectName={subjectName} testType={testType} />
-              {questions.map((question, index) => (
-                <Card key={index} style={{ marginBottom: '20px', padding: '10px' }}>
-                  <CardContent>
+              {questionSet.map((question, index) => (
+                <Card key={index} id="navbarFont" style={{ marginBottom: '20px', padding: '10px' }}>
+                  <CardContent id={`answer-${index}`}>
                     <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>{`Question ${index + 1}: ${question.question}`}</p>
                     <TextField
                       id={`answer-${index}`}
@@ -207,7 +204,7 @@ const TestQNA = () => {
                       variant="outlined"
                       fullWidth
                       multiline
-                      value={questions[index].user_answer}
+                      value={questionSet[index].user_answer}
                       onChange={(e) => handleAnswerChange(index, e.target.value)}
                       style={{ marginTop: '10px' }}
                     />

@@ -84,20 +84,18 @@ const EmploymentDetails = () => {
     <div>
       {result.length !== 0 &&
         <>
-        <div>
+        <div style={{ margin: "10px" }}>
           <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Employment Database</h1>
           <Divider></Divider>
         </div>
-        <div style={{ marginTop: "20px" }}>
-
-          
+        <div style={{ margin: "10px", marginTop:'30px', marginBottom:'25px' }}>
             <FormControl style={{ minWidth: "200px" }}>
-              <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+              <InputLabel id="demo-simple-select-label">SORT - CTC</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={arrangement}
-                label="Sort"
+                label="SORT - CTC"
                 onChange={sortHandler}
               >
                 <MenuItem value="asc">Lower to Higher</MenuItem>
@@ -105,8 +103,6 @@ const EmploymentDetails = () => {
               </Select>
             </FormControl>
         </div>
-
-        <Divider />
 
         <div>
           <Card sx={{ display: "flex", margin:'10px' }} >

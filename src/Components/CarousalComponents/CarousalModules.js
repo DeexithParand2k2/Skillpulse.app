@@ -16,7 +16,7 @@ function CarousalModules({changeChoiceModuleCallback, changeChoiceSubjectCallbac
             changeChoiceSubjectCallback("") //to release the tests part
             changeChoiceTestCallback("")
           }}>
-            <ElegantCard  cardName={item.toUpperCase()} />
+            <ElegantCard cardName={item.toUpperCase()} />
           </div>
         ))}
       </div>

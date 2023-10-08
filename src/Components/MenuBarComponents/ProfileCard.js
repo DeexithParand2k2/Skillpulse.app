@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {
   Card,
@@ -21,6 +21,12 @@ function ProfileCard({ showProfile }) {
     //navigate to home
     navigate('/home')
   }
+
+  useEffect(()=>{
+    if(sessionStorage.getItem('myUseremail')){
+      setUsername(JSON.parse(sessionStorage.getItem('myUseremail')).username.split('@')[0])
+    }
+  },[])
 
   const logoutButtonStyles = {
     display: 'flex',
