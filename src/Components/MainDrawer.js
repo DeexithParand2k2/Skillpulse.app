@@ -26,7 +26,7 @@ import { Routes, Route, Outlet, Link, useParams } from "react-router-dom";
 import Resources from "./MenuBarComponents/Resources";
 import ProfileCard from "./MenuBarComponents/ProfileCard";
 import React, {useEffect, useState} from "react";
-import Leaderboard from "./MenuBarComponents/Leaderboard";
+import Leaderboard from "../Pages/Leaderboard/Leaderboard";
 import { Avatar } from "@mui/material";
 
 
