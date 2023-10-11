@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 
 import TestModal from '../Components/TestModal'
-import TestSwitch from './TestSwitch';
+import TestSwitch from './Graphmodules/TestSwitch';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
@@ -78,11 +78,11 @@ function Dashboard() {
   const [takeTest,changeTakeTest] = useState([]);
   
 
-  // call backs for graphs
+  // choice for viewing marks on graphs
   const [testTypeGraph,changeTestTypeGraph] = useState("entryTest");
   const [moduleTypeGraph,changeModuleTypeGraph] = useState("m1");
 
-  // call backs for moduleAnalysis
+  // choice for viewing marks on 
   const [testTypeSplitWise,changeTestTypeSplitWise] = useState("entryTest");
   const [moduleTypeSplitWise,changeModuleTypeSplitWise] = useState("m1");
 
@@ -129,7 +129,7 @@ function Dashboard() {
   //### call backs graph done here
 
 
-  //### moduleAnalysis call backs 
+  //### moduleAnalysis splitwise call backs 
   const changeTestTypeSplitWiseCallback = (newchoice) =>{
     changeTestTypeSplitWise(newchoice);
   }
@@ -137,9 +137,7 @@ function Dashboard() {
   const changeModuleTypeSplitWiseCallback = (newchoice) =>{
     changeModuleTypeSplitWise(newchoice);
   }
-  //### moduleAnalysis call backs 
-
-
+  //### moduleAnalysis splitwise call backs 
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -182,7 +180,6 @@ function Dashboard() {
         navigate(`/dashboard`);
       }
     }
-    
 
     setOpen(false);
   };
@@ -197,103 +194,103 @@ function Dashboard() {
 
   return (
     <div style={{marginTop:'50px'}}>
-          <ThemeProvider theme={theme}>
-            <div className='Dashboard-Container'>
+        <ThemeProvider theme={theme}>
+          <div className='Dashboard-Container'>
 
-              <div>
-                <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Dashboard</h1>
-              </div>
-
-              <div style={{ position: 'relative', marginBottom: '10px' }}>
-                <Divider variant='middle'></Divider>
-              </div>
-
-              {/* 1. graph representation, writing the formcontrol outside */}
-              <div style={{display:'flex',flexDirection:'column'}} className='Score-Graph-Representation'>
-
-                <div style={{display:'flex', gap:'20px', margin:'10px'}}>
-                  <TestSwitch changeTestTypeGraphCallback={changeTestTypeGraphCallback} />
-                  <ModuleSwitch changeModuleTypeGraphCallback={changeModuleTypeGraphCallback}/>
-                </div>
-                
-                <GraphModule moduleTypeGraph={moduleTypeGraph} testTypeGraph={testTypeGraph} totalMarks={totalMarks} />
-              </div>
-
-              <div style={{ position: 'relative', marginBottom: '50px', marginTop: '50px' }}>
-                <Divider variant='middle'></Divider>
-              </div>
-
-              {/* Predefined score rep json from DATA, also the comments */}
-              
-              {/* 2. SplitWise Analysis */}
-              <div style={{display:'flex',flexDirection:'column'}} className='Score-Graph-Representation'>
-                <div style={{display:'flex', gap:'20px', margin:'10px'}}>
-                  <TestSwitchSplit changeTestTypeSplitWiseCallback={changeTestTypeSplitWiseCallback}/>
-                  <ModuleSwitchSplit changeModuleTypeSplitWiseCallback={changeModuleTypeSplitWiseCallback}/>
-                </div>
-
-                <ModuleAnalysis testTypeSplitWise={testTypeSplitWise} moduleTypeSplitWise={moduleTypeSplitWise} totalMarks={totalMarks} />
-              </div>
-              
-              
-              <div style={{ position: 'relative', marginBottom: '10px', marginTop: '10px' }}>
-                <Divider variant='middle'></Divider>
-              </div>
-              
-              {/* This should open a fullscreen modal */}
-              <div className="Evaluation-Modal">
-                <Button variant="outlined" sx={{margin:'50px'}}  onClick={handleClickOpen}>
-                  Take Test
-                </Button>
-
-                {/* This opens only on click, evaluation choices will */}
-                <Dialog
-                  fullScreen
-                  open={open}
-                  onClose={handleClose}
-                  TransitionComponent={Transition}
-                  className='Dialog-Container'
-                  id="navbarFont"
-                >
-                  
-                  <AppBar sx={{ position: 'relative' }}>
-                    <Toolbar>
-                      <IconButton
-                        color="inherit"
-                        onClick={() => setOpen(false)}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                      <Typography sx={{ ml: 2, flex: 1, fontSize:'15px' }} variant="p">
-                        CHOOSE TEST MODULES
-                      </Typography>
-                      {/* <Button id="navbarFont" color="inherit" variant="p" onClick={handleClose}>
-                        Take Test
-                      </Button> */}
-                      <Button
-                        color="inherit"
-                        variant="outlined" // Use outlined variant for a subdued appearance
-                        sx={{
-                          fontSize:'14px',
-                          '&:hover': {
-                            color: 'lime', // Use a slightly transparent white for text color
-                            borderColor: 'lime', // Use a slightly transparent white for border color
-                          },
-                        }}
-                        onClick={handleClose}
-                      >
-                        Take Test
-                      </Button>
-                    </Toolbar>
-                  </AppBar>
-
-                  {/* You can add your custom content here */}
-                  <TestModal getCombinedChoices={getCombinedChoices} />
-
-                </Dialog>
-              </div>
+            <div>
+              <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Dashboard</h1>
             </div>
-          </ThemeProvider>
+
+            <div style={{ position: 'relative', marginBottom: '10px' }}>
+              <Divider variant='middle'></Divider>
+            </div>
+
+            {/* 1. graph representation, writing the formcontrol outside */}
+            <div style={{display:'flex',flexDirection:'column'}} className='Score-Graph-Representation'>
+
+              <div style={{display:'flex', gap:'20px', margin:'10px'}}>
+                <TestSwitch changeTestTypeGraphCallback={changeTestTypeGraphCallback} />
+                <ModuleSwitch changeModuleTypeGraphCallback={changeModuleTypeGraphCallback}/>
+              </div>
+              
+              <GraphModule moduleTypeGraph={moduleTypeGraph} testTypeGraph={testTypeGraph} totalMarks={totalMarks} />
+            </div>
+
+            <div style={{ position: 'relative', marginBottom: '50px', marginTop: '50px' }}>
+              <Divider variant='middle'></Divider>
+            </div>
+
+            {/* Predefined score rep json from DATA, also the comments */}
+            
+            {/* 2. SplitWise Analysis */}
+            <div style={{display:'flex',flexDirection:'column'}} className='Score-Graph-Representation'>
+              <div style={{display:'flex', gap:'20px', margin:'10px'}}>
+                <TestSwitchSplit changeTestTypeSplitWiseCallback={changeTestTypeSplitWiseCallback}/>
+                <ModuleSwitchSplit changeModuleTypeSplitWiseCallback={changeModuleTypeSplitWiseCallback}/>
+              </div>
+
+              <ModuleAnalysis testTypeSplitWise={testTypeSplitWise} moduleTypeSplitWise={moduleTypeSplitWise} totalMarks={totalMarks} />
+            </div>
+            
+            
+            <div style={{ position: 'relative', marginBottom: '10px', marginTop: '10px' }}>
+              <Divider variant='middle'></Divider>
+            </div>
+            
+            {/* This should open a fullscreen modal */}
+            <div className="Evaluation-Modal">
+              <Button variant="outlined" sx={{margin:'50px'}}  onClick={handleClickOpen}>
+                Take Test
+              </Button>
+
+              {/* This opens only on click, evaluation choices will */}
+              <Dialog
+                fullScreen
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Transition}
+                className='Dialog-Container'
+                id="navbarFont"
+              >
+                
+                <AppBar sx={{ position: 'relative' }}>
+                  <Toolbar>
+                    <IconButton
+                      color="inherit"
+                      onClick={() => setOpen(false)}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                    <Typography sx={{ ml: 2, flex: 1, fontSize:'15px' }} variant="p">
+                      CHOOSE TEST MODULES
+                    </Typography>
+                    {/* <Button id="navbarFont" color="inherit" variant="p" onClick={handleClose}>
+                      Take Test
+                    </Button> */}
+                    <Button
+                      color="inherit"
+                      variant="outlined" // Use outlined variant for a subdued appearance
+                      sx={{
+                        fontSize:'14px',
+                        '&:hover': {
+                          color: 'lime', // Use a slightly transparent white for text color
+                          borderColor: 'lime', // Use a slightly transparent white for border color
+                        },
+                      }}
+                      onClick={handleClose}
+                    >
+                      Take Test
+                    </Button>
+                  </Toolbar>
+                </AppBar>
+
+                {/* You can add your custom content here */}
+                <TestModal getCombinedChoices={getCombinedChoices} />
+
+              </Dialog>
+            </div>
+          </div>
+        </ThemeProvider>
     </div>
   )
   

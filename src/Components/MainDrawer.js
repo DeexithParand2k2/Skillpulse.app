@@ -1,11 +1,9 @@
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -18,12 +16,11 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import HistoryIcon from "@mui/icons-material/History";
 import WorkIcon from "@mui/icons-material/Work";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import Dashboard from "./Dashboard";
 import { useNavigate } from "react-router";
 import TestsTaken from './MenuBarComponents/TestsTaken'
-import EmploymentDB from "./MenuBarComponents/EmploymentDB";
+import EmploymentDB from "../Pages/EmploymentDB/EmploymentDB";
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { Routes, Route, Outlet, Link, useParams } from "react-router-dom";
 import Resources from "./MenuBarComponents/Resources";

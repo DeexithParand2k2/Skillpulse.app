@@ -1,6 +1,4 @@
-import { Card, Box, CardContent, Typography, CardMedia } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Card, Box, CardContent, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 
 const EmployeeItem = ({ name, eis, company, ctc }) => {

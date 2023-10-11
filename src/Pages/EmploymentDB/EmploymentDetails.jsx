@@ -9,10 +9,10 @@ import {
   Divider,
 } from "@mui/material";
 
-import { Card, Box, CardContent, Typography, CardMedia } from "@mui/material";
-import ErrorLoader from "../ErrorHandling/ErrorLoader";
+import { Card, Box, CardContent, Typography } from "@mui/material";
 import { useQuery } from 'react-query';
-import Spinner from "../ErrorHandling/LoadingScreen";
+import Spinner from '../../Components/ErrorHandling/LoadingScreen'
+import ErrorLoader from "../../Components/ErrorHandling/ErrorLoader";
 
 
 const EmploymentDetails = () => {

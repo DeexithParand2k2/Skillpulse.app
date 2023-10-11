@@ -1,5 +1,5 @@
 import React from 'react'
-import EmploymentDetails from '../Employment/EmploymentDetails'
+import EmploymentDetails from '../EmploymentDB/EmploymentDetails'
 
 function EmploymentDB() {
   return (
