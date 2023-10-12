@@ -5,7 +5,13 @@ import {
     Select,
     MenuItem
 } from '@mui/material';
-import '../../Styles/App.css'
+import '../../../Styles/App.css'
+
+/**
+ * user choice for which module to display in splitwise component
+ * @param {function} changeTestTypeGraphCallback - callback from dashboard used to find the user choice module to view in graph
+ * @returns {JSX.Element} - returns the dropdown to choose module in graph
+*/
 
 function ModuleSwitchSplit({ changeModuleTypeSplitWiseCallback }) {
 

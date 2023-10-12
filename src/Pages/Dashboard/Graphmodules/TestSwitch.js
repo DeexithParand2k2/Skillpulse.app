@@ -5,7 +5,13 @@ import {
     Select,
     MenuItem
 } from '@mui/material';
-import '../../Styles/App.css'
+import '../../../Styles/App.css'
+
+/**
+ * user choice for which test type to display in graph
+ * @param {function} changeTestTypeGraphCallback - callback from dashboard used to find the user choice test type to view in graph
+ * @returns {JSX.Element} - returns the dropdown to choose test type in graph
+*/
 
 function TestSwitch({ changeTestTypeGraphCallback }) {
   const [currentTest, changeTestAnalysis] = useState('entryTest'); // Default state is 'entryTest'

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Paper, IconButton, Container, Grid, Typography  } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CarousalModules from './CarousalComponents/CarousalModules';
 import CarousalSubjects from './CarousalComponents/CarousalSubjects';
 import CarousalTests from './CarousalComponents/CarousalTests'

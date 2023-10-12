@@ -11,8 +11,6 @@ import {
   Slide,
 } from '@mui/material';
 
-import TestModal from '../../Components/TestModal'
-import TestSwitch from '../../Components/Graphmodules/TestSwitch';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
@@ -22,11 +20,27 @@ import { useQuery } from 'react-query';
 import Spinner from '../../Components/ErrorHandling/LoadingScreen';
 import ErrorLoader from '../../Components/ErrorHandling/ErrorLoader';
 
+import TestModal from '../../Components/TestModal'
 import { TestTotalMarks } from '../../Data/TestHistory';
 import ModuleAnalysis from '../../Components/ModuleAnalysis';
-import ModuleSwitch from '../../Components/Graphmodules/ModuleSwitch';
-import ModuleSwitchSplit from '../../Components/SplitWiseComponents/ModuleSwitchSplit';
-import TestSwitchSplit from '../../Components/SplitWiseComponents/TestSwitchSplit';
+
+// import {
+//   ModuleSwitch,
+//   TestSwitch
+// } from './Graphmodules';
+// import {
+//   ModuleSwitchSplit,
+//   TestSwitchSplit
+// } from './SplitWiseComponents'
+
+// import ModuleSwitch from './Graphmodules/ModuleSwitch';
+// import TestSwitch from './Graphmodules/TestSwitch';
+// import ModuleSwitchSplit from './SplitWiseComponents/ModuleSwitchSplit';
+// import TestSwitchSplit from './SplitWiseComponents/TestSwitchSplit';
+
+import { ModuleSwitch, TestSwitch } from './Graphmodules';
+import { ModuleSwitchSplit, TestSwitchSplit } from './SplitWiseComponents';
+
 
 import '../../Styles/App.css'
 import '../../Styles/DashboardStyles.css'

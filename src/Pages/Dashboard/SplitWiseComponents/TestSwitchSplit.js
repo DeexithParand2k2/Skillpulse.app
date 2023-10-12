@@ -5,7 +5,13 @@ import {
     Select,
     MenuItem
 } from '@mui/material';
-import '../../Styles/App.css'
+import '../../../Styles/App.css'
+
+/**
+ * user choice for which test type to display in splitwise component
+ * @param {function} changeTestTypeSplitWiseCallback - callback from dashboard used to find the user choice test type to view in splitwise component
+ * @returns {JSX.Element}  - returns the dropdown to choose test type in splitwise component
+*/
 
 function TestSwitchSplit({changeTestTypeSplitWiseCallback}) {
     const [currentTest, changeTestAnalysis] = useState('entryTest'); // Default state is 'entryTest'
