@@ -12,8 +12,9 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { subjectIconLinks } from "../Data/ModulesData";
 
+// this is the module where splitwise analysis is displayed
 export default function SingleSubjectCard({singleSubject,subjectName}) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const [subtopicsName,changeSubtopicName] = useState([]);
 
   const handleExpandClick = () => {

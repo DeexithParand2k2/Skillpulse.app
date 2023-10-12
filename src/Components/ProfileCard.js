@@ -4,7 +4,7 @@ import {
   Card,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import '../../Styles/App.css';
+import '../Styles/App.css';
 import { useNavigate } from 'react-router';
 
 function ProfileCard({ showProfile }) {

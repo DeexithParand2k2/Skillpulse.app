@@ -1,45 +1,39 @@
 import React,{useEffect, useState} from 'react'
-import GraphModule from './GraphModule';
+import GraphModule from '../../Components/GraphModule';
 import {
   Button,
   Dialog,
-  ListItemText,
-  ListItem,
-  List,
   Divider,
   AppBar,
   Toolbar,
   IconButton,
   Typography,
   Slide,
-  Chip,
-  Card,
-  CardContent
 } from '@mui/material';
 
-import TestModal from '../Components/TestModal'
-import TestSwitch from './Graphmodules/TestSwitch';
+import TestModal from '../../Components/TestModal'
+import TestSwitch from '../../Components/Graphmodules/TestSwitch';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import '../Styles/DashboardStyles.css'
-import { TestTotalMarks } from '../Data/TestHistory';
-
-
 import { useNavigate } from 'react-router-dom';
-import ModuleAnalysis from './ModuleAnalysis';
-import ModuleSwitch from './Graphmodules/ModuleSwitch';
-import ModuleSwitchSplit from './SplitWiseComponents/ModuleSwitchSplit';
-import TestSwitchSplit from './SplitWiseComponents/TestSwitchSplit';
-import Spinner from './ErrorHandling/LoadingScreen';
-import ErrorLoader from './ErrorHandling/ErrorLoader';
 import { useQuery } from 'react-query';
-import '../Styles/App.css'
+
+import Spinner from '../../Components/ErrorHandling/LoadingScreen';
+import ErrorLoader from '../../Components/ErrorHandling/ErrorLoader';
+
+import { TestTotalMarks } from '../../Data/TestHistory';
+import ModuleAnalysis from '../../Components/ModuleAnalysis';
+import ModuleSwitch from '../../Components/Graphmodules/ModuleSwitch';
+import ModuleSwitchSplit from '../../Components/SplitWiseComponents/ModuleSwitchSplit';
+import TestSwitchSplit from '../../Components/SplitWiseComponents/TestSwitchSplit';
+
+import '../../Styles/App.css'
+import '../../Styles/DashboardStyles.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 const theme = createTheme({
   palette: {

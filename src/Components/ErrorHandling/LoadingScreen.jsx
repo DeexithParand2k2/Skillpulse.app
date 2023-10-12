@@ -23,7 +23,7 @@ const Spinner = () => {
   return (
     <div style={styles.modalBackground}>
       <div style={styles.modalContainer}>
-        <img src="/images/loading.gif" style={{ width: "500px" }} alt="Loading" />
+        <img src="/Assets/GIF/loading.gif" style={{ width: "500px" }} alt="Loading" />
       </div>
     </div>
   );

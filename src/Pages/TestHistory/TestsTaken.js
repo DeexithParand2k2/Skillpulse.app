@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { TestModulesHistory, TestTotalMarks } from '../../Data/TestHistory';
-import Loading from '../ErrorHandling/LoadingScreen'
-import ErrorLoader from '../ErrorHandling/ErrorLoader'
 import '../../Styles/App.css'
 import {
   Divider,
 } from '@mui/material';
 import { useQuery } from 'react-query';
-import Spinner from '../ErrorHandling/LoadingScreen';
-import { Card, Box, CardContent, Typography, CardMedia } from "@mui/material";
+import Spinner from '../../Components/ErrorHandling/LoadingScreen';
+import ErrorLoader from '../../Components/ErrorHandling/ErrorLoader'
+import { Card, Box, CardContent, Typography } from "@mui/material";
 
 const apiEndpoint = "http://localhost:8000/api/dbaccess/get-total-marks/";
 
@@ -149,11 +148,18 @@ function TestsTaken() {
 
 
       <div>
-
-        <Card sx={{ display: "flex", margin:'10px' }} >
+        <Card sx={{ display: "flex", margin:'10px', marginTop:'15px' }} >
 
           <Box width="100%"> {/* Set the width to 100% */}
-            <CardContent sx={{ display: "flex", flexDirection:'row', justifyContent:'space-between', alignItems:'center' , width: '100%' }}> {/* Set the width to 100% */}
+            <CardContent sx={{ 
+              display: "flex", 
+              flexDirection:'row', 
+              justifyContent:'space-between', 
+              alignItems:'center' , 
+              width: '100%',
+              color: 'white',
+              backgroundColor: 'black'
+            }}> {/* Set the width to 100% */}
 
               <Typography
                 variant="subtitle1"
@@ -196,8 +202,8 @@ function TestsTaken() {
               <Card sx={{ 
                 display: "flex", 
                 margin:'10px',
-                color: idx===0 ? 'white' : 'black',
-                backgroundColor: idx===0 ? 'black' : 'white'
+                color: 'black',
+                backgroundColor: 'white'
               }} key={idx} >
                 <Box width="100%">
                   <CardContent sx={{ display: "flex", flexDirection:'row', justifyContent:'space-between', alignItems:'center' , width: '100%' }}>

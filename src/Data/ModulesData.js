@@ -14,17 +14,17 @@ var modules = {
 
 
 const subjectIconLinks = {
-    "c/c++": `/images/cc++.png`,
-    "java": `/images/java.png`,
-    "oops": `/images/oops.png`,
-    "dsa": `/images/dsa.png`,
-    "dbms": `/images/dbms.jpg`,
-    "cn": `/images/cn.png`,
-    "os": `/images/os.png`,
-    "entry test": `/images/entrytest.png`,
-    "exit test": `/images/exittest.png`,
-    "m1":  `/images/mcq.png`,
-    "m2":  `/images/theory.png`,
+    "c/c++": `/Assets/images/cc++.png`,
+    "java": `/Assets/images/java.png`,
+    "oops": `/Assets/images/oops.png`,
+    "dsa": `/Assets/images/dsa.png`,
+    "dbms": `/Assets/images/dbms.jpg`,
+    "cn": `/Assets/images/cn.png`,
+    "os": `/Assets/images/os.png`,
+    "entry test": `/Assets/images/entrytest.png`,
+    "exit test": `/Assets/images/exittest.png`,
+    "m1":  `/Assets/images/mcq.png`,
+    "m2":  `/Assets/images/theory.png`,
 };
 
 

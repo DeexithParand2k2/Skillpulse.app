@@ -9,9 +9,9 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import { useQuery, useQueryClient } from 'react-query';
-import ErrorLoader from '../ErrorHandling/ErrorLoader';
-import Spinner from '../ErrorHandling/LoadingScreen';
+import { useQuery } from 'react-query';
+import ErrorLoader from '../../Components/ErrorHandling/ErrorLoader';
+import Spinner from '../../Components/ErrorHandling/LoadingScreen';
 import '../../Styles/App.css';
 
 function Resources() {

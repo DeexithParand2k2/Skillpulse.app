@@ -40,7 +40,7 @@ const EmploymentDetails = () => {
 
   useEffect(()=>{
     if (data) {
-      console.log('got fetched data emp db ', data);
+      console.log('got fetched data emp db', data);
       changeResult(data.senior_profiles);
     }
   },[data])
@@ -82,7 +82,7 @@ const EmploymentDetails = () => {
       {result.length !== 0 &&
         <>
         <div style={{ margin: "10px" }}>
-          <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Employment Database</h1>
+          <h1 id="headingFont" style={{ textAlign: 'center', margin:'10px' }}>Seniors Database</h1>
           <Divider></Divider>
         </div>
         <div style={{ margin: "10px", marginTop:'30px', marginBottom:'25px' }}>
@@ -104,7 +104,7 @@ const EmploymentDetails = () => {
         <div>
           <Card sx={{ display: "flex", margin:'10px' }} >
             <Box width="100%"> {/* Set the width to 100% */}
-              <CardContent sx={{ display: "flex", flexDirection:'row', justifyContent:'space-between', alignItems:'center' , width: '100%' }}> {/* Set the width to 100% */}
+              <CardContent sx={{ display: "flex", flexDirection:'row', justifyContent:'space-between', alignItems:'center' , width: '100%', height:'90px' , color:'white', backgroundColor:'black' }}> {/* Set the width to 100% */}
                 
                 <Typography sx={{width:'100px', textAlign:'center'}} component="div" variant="subtitle1">
                   Profile

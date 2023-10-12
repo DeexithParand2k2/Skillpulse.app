@@ -17,17 +17,17 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import HistoryIcon from "@mui/icons-material/History";
 import WorkIcon from "@mui/icons-material/Work";
 import TimelineIcon from "@mui/icons-material/Timeline";
-import Dashboard from "./Dashboard";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 import { useNavigate } from "react-router";
-import TestsTaken from './MenuBarComponents/TestsTaken'
-import EmploymentDB from "../Pages/EmploymentDB/EmploymentDB";
+import TestsTaken from '../Pages/TestHistory/TestsTaken'
+import EmploymentDB from "../Pages/SeniorsDB/SeniorsDB";
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { Routes, Route, Outlet, Link, useParams } from "react-router-dom";
-import Resources from "./MenuBarComponents/Resources";
-import ProfileCard from "./MenuBarComponents/ProfileCard";
+import Resources from "../Pages/Resources/Resources";
 import React, {useEffect, useState} from "react";
 import Leaderboard from "../Pages/Leaderboard/Leaderboard";
 import { Avatar } from "@mui/material";
+import ProfileCard from "./ProfileCard";
 
 
 const drawerWidth = 240;
@@ -108,13 +108,13 @@ export default function PersistentDrawerLeft() {
   const handleTestHistoryClick = () => {
     // Use the navigate function to redirect to the Test History page
     navigate('/dashboard/test-taken');
-    setMenuData('tests-taken')
+    setMenuData('test-history')
   };
 
   const handleEmploymentDBClick = () => {
-    // Use the navigate function to redirect to the Employment DB page
-    navigate('/dashboard/employment-db');
-    setMenuData('employment-db')
+    // Use the navigate function to redirect to the Senior Database page
+    navigate('/dashboard/seniors-db');
+    setMenuData('seniors-db')
   };
 
   const handleLeaderBoardClick = () => {
@@ -206,21 +206,21 @@ export default function PersistentDrawerLeft() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem key="Tests Taken" disablePadding>
+          <ListItem key="Test History" disablePadding>
             <ListItemButton onClick={handleTestHistoryClick}>
               <ListItemIcon>
                 <HistoryIcon />
               </ListItemIcon>
-              <ListItemText primary="Tests Taken" />
+              <ListItemText primary="Test History" />
             </ListItemButton>
           </ListItem>
 
-          <ListItem key="Employment DB" disablePadding>
+          <ListItem key="Seniors Database" disablePadding>
             <ListItemButton onClick={handleEmploymentDBClick}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
-              <ListItemText primary="Employment DB" />
+              <ListItemText primary="Seniors Database" />
             </ListItemButton>
           </ListItem>
 
@@ -246,8 +246,8 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         {menuData==='dashboard' && <Dashboard />}
-        {menuData==='tests-taken' && <TestsTaken />}
-        {menuData==='employment-db' && <EmploymentDB />}
+        {menuData==='test-history' && <TestsTaken />}
+        {menuData==='seniors-db' && <EmploymentDB />}
         {menuData==='leaderboard' && <Leaderboard />}
         {menuData==='resources' && <Resources />}
 
@@ -264,13 +264,13 @@ export default function PersistentDrawerLeft() {
               }
             />
             <Route
-              path="tests-taken"
+              path="test-history"
               element={
                   <TestsTaken />
               }
             />
             <Route
-              path="employment-db"
+              path="seniors-db"
               element={
                   <EmploymentDB />
               }

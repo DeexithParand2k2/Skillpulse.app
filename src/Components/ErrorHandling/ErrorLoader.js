@@ -23,7 +23,7 @@ const ErrorLoader = () => {
   return (
     <div style={styles.modalBackground}>
       <div style={styles.modalContainer}>
-        <img src="/images/error.gif" style={{ width: "500px" }} alt="Loading" />
+        <img src="/Assets/GIF/error.gif" style={{ width: "500px" }} alt="Loading" />
       </div>
     </div>
   );

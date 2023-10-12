@@ -1,12 +1,3 @@
-import { 
-  FormControl, 
-  InputLabel, 
-  Select, 
-  MenuItem, 
-  Card,
-  CardContent,
-  Typography 
-} from "@mui/material";
 import { useEffect, useState } from "react";
 import SingleSubjectCard from "./SingleSubjectCard";
 
