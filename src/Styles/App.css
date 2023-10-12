@@ -35,6 +35,11 @@ p {
   font-size: 16px;
 }
 
+#comparisonModalComponent:hover{
+  background-color: whitesmoke;
+  cursor: pointer
+}
+
 #bodyText {
   font-family: 'Roboto', sans-serif;
   font-size: 18px; /* You can adjust this size within the 16px to 18px range */
@@ -48,6 +53,11 @@ p {
 #navbarFont {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px; /* You can adjust this size within the 14px to 16px range */
+}
+
+#subjectCardSplitwise:hover{
+  cursor: pointer;
+  background-color: whitesmoke;
 }
 
 /* Additional Styles

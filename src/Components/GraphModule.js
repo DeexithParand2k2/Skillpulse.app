@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { Card, CardContent } from '@mui/material';
-import EmptyGraphBackground from './EmptyGraphBackground';
+import EmptyGraphBackground from './EmptyComponents/EmptyGraphBackground';
+
+/**
+ * component to display graph
+ * 
+ * @param {string} moduleTypeGraph - The type of module to display in the graph.
+ * @param {string} testTypeGraph - The type of test to display in the graph.
+ * @param {number} totalMarks - The total marks to display on the graph.
+ * 
+ * @returns {JSX.Element} The graph component
+*/ 
 
 function GraphModule({ moduleTypeGraph, testTypeGraph, totalMarks }) {
   const [subjects, setSubjects] = useState([]);
@@ -57,7 +67,7 @@ function GraphModule({ moduleTypeGraph, testTypeGraph, totalMarks }) {
               series={[
                 {
                   data: marks,
-                  color: testTypeGraph === 'entryTest' ? '#3498db' : '#2ecc71', // Set color to red for 'm2'
+                  color: testTypeGraph === 'entryTest' ? '#3498db' : '#2ecc71', // Set different color for 'm2'
                 },
               ]}
               width={450}

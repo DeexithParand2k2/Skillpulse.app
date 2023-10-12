@@ -24,20 +24,6 @@ import TestModal from '../../Components/TestModal'
 import { TestTotalMarks } from '../../Data/TestHistory';
 import ModuleAnalysis from '../../Components/ModuleAnalysis';
 
-// import {
-//   ModuleSwitch,
-//   TestSwitch
-// } from './Graphmodules';
-// import {
-//   ModuleSwitchSplit,
-//   TestSwitchSplit
-// } from './SplitWiseComponents'
-
-// import ModuleSwitch from './Graphmodules/ModuleSwitch';
-// import TestSwitch from './Graphmodules/TestSwitch';
-// import ModuleSwitchSplit from './SplitWiseComponents/ModuleSwitchSplit';
-// import TestSwitchSplit from './SplitWiseComponents/TestSwitchSplit';
-
 import { ModuleSwitch, TestSwitch } from './Graphmodules';
 import { ModuleSwitchSplit, TestSwitchSplit } from './SplitWiseComponents';
 

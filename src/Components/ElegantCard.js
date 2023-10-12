@@ -18,8 +18,6 @@ const ElegantCard = styled(Card)(({ theme }) => ({
   border: `1px solid black`,
   background: 'white',
   margin: '5px 15px 5px 15px',
-  // background: 'linear-gradient(to bottom, white, lightgray)',
-  // boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
   transition: 'transform 0.3s ease, background 0.3s ease, border-color 0.3s ease', // Transition on hover
   '&:hover': {
     transform: 'scale(1.05)', // Increase scale on hover

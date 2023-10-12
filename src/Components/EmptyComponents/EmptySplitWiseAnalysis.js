@@ -5,7 +5,12 @@ import {
   Typography
 } from '@mui/material'
 
-function EmptyModuleAnalysis() {
+/**
+ * 
+ * @returns {JSX.Element} - Empty Splitwise Analysis Component rendered if 0 tests attended 
+*/
+
+function EmptySplitWiseAnalysis() {
   return (
     // IN CASE NO TEST ATTENDED
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
@@ -20,4 +25,4 @@ function EmptyModuleAnalysis() {
   )
 }
 
-export default EmptyModuleAnalysis
+export default EmptySplitWiseAnalysis
