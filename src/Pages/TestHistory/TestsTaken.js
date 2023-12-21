@@ -104,19 +104,16 @@ function TestsTaken() {
   }
 
   const sortArrayOnTime = (array) => {
-
-    array.sort((a,b)=>{
-
-      const timeA = new Date(a.time)
-      const timeB = new Date(b.time)
-
-      return timeB-timeA
-
-    })
-
+    array.sort((a, b) => {
+      const timeA = new Date(a.time + ' ' + a.date);
+      const timeB = new Date(b.time + ' ' + b.date);
+  
+      return timeB - timeA;
+    });
+  
     return array;
-
-  }
+  };
+  
 
   useEffect(()=>{
 
@@ -126,7 +123,6 @@ function TestsTaken() {
       let retCardContent = updateCardContent(data)
       let sortedCardContent = sortArrayOnTime(retCardContent) 
       setCardContent(sortedCardContent)
-      console.log(cardContent)
     }
 
   },[data,testModulesHistory])

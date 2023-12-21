@@ -137,6 +137,7 @@ export default function PersistentDrawerLeft() {
   }
 
   useEffect(()=>{
+    console.log("BOOM BOOM Boomer",userEmail)
     if(sessionStorage.getItem('myUseremail')){
       setUserEmail(JSON.parse(sessionStorage.getItem('myUseremail')).username)
     }
@@ -161,7 +162,7 @@ export default function PersistentDrawerLeft() {
             <IconButton onClick={handleAccountCircleClick}>
               <Avatar
                 alt="X"
-                src={`https://avatars.dicebear.com/api/identicon/${userEmail}.svg`}
+                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userEmail}.com`}
                 sx={{ width: 35, height: 35, border: '2px solid #fff' }} // Adjust the width and height as needed
               />
             </IconButton>

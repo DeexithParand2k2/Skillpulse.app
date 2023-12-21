@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 
 const EmployeeItem = ({ name, eis, company, ctc }) => {
 
-  const avatarSrc = `https://avatars.dicebear.com/api/identicon/${name}.svg`;
+  const avatarSrc =  `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}.com`
 
   return (
     <Card sx={{ display: "flex", margin:'10px' }} >

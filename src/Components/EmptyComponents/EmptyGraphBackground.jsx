@@ -31,7 +31,7 @@ const EmptyGraphBackground = () => {
   return (
     <div style={containerStyle}>
       <img
-        src="https://www.seekpng.com/png/detail/438-4389769_increase-graph-png-download-sage-50-premium-2016.png"
+        src="https://t3.ftcdn.net/jpg/01/37/61/16/360_F_137611645_SOy1fYxCtghdD2OlOiBwri7IXozGCemV.jpg"
         alt="Graph"
         style={imageStyle}
       />
