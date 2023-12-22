@@ -60,7 +60,7 @@ const Home = () => {
               <a onClick={handleClick}>Dashboard</a>
             </li>
             <li className="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-              <a href="">FAQ</a>
+              <a href="https://github.com/DeexithParand2k2/Skillpulse.app/blob/master/README.md" target="_blank">Guide</a>
             </li>
           </ul>
         </nav>
