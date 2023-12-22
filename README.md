@@ -1,4 +1,4 @@
-# Skillpulse Application
+# Skillpulse.app
 
 ## Overview
 Skillpulse is an application that allows students to assess their employment readiness and academic statistics by taking tests in subjects they have studied. This readme provides instructions on how to set up and use the Skillpulse application on your local system.
